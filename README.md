@@ -1,2 +1,3 @@
 # ProjectManagementTool
-A Project Management Tool to collaborate, design and develop Projects 
+A Project Management Tool to collaborate, design and develop Projects
+IP Project 
