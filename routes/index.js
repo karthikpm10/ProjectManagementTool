@@ -3,8 +3,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Project Management Tool!!' });
   
+  res.render('index', { title: 'Project Management Tool' });
+ 
 });
 
 module.exports = router;
