@@ -18,11 +18,11 @@ var SprintSchema = new Schema({
     },
     start_date: Date,
     end_date: Date,
-    comments: {
+    comments: [{
         name: String,           //Name of user0
         content: String,
         timestamp: Date
-    }
+    }]
 },
     {
         collection: 'sprints'  //collection name

@@ -25,11 +25,11 @@ var TaskSchema = new Schema({
         timestamp: Date,
         reason: String
     },
-    comments: {
+    comments: [{
         name: String,           //Name of user0
         content: String,
         timestamp: Date
-    }
+    }]
 },
     {
         collection: 'tasks'  //collection name

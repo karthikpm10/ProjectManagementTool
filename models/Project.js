@@ -13,11 +13,11 @@ var ProjectSchema = new Schema({
     start_date: Date,
     end_date: Date,
     sprints: Number,        //Number of sprints
-    comments: {
+    comments: [{
         name: String,           //Name of user0
         content: String,
         timestamp: Date
-    }
+    }]
 },
     {
         collection: 'projects'  //collection name
