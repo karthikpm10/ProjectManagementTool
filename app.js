@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 
 
 mongoose.Promise = global.Promise;
+
 //Connecting the local database
 //Change the DB name to your local database name
 mongoose.connect('mongodb://localhost/ipLocalDB')
@@ -15,7 +16,6 @@ mongoose.connect('mongodb://localhost/ipLocalDB')
 
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var profileRouter = require('./routes/profile');
 var sprintRouter = require('./routes/sprint');
 var taskRouter = require('./routes/task');
@@ -34,7 +34,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/profile', profileRouter);
 app.use('/project', projectRouter);
 app.use('/sprint', sprintRouter);
