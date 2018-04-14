@@ -4,13 +4,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 
 mongoose.Promise = global.Promise;
 
 //Connecting the local database
 //Change the DB name to your local database name
-mongoose.connect('mongodb://localhost/ipLocalDB')
+mongoose.connect('mongodb://localhost/IPDatabase')
   .then(() => console.log('connection to local database succesful'))
   .catch((err) => console.error(err));
 
@@ -31,6 +33,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -38,6 +42,12 @@ app.use('/profile', profileRouter);
 app.use('/project', projectRouter);
 app.use('/sprint', sprintRouter);
 app.use('/task', taskRouter);
+
+//passport configuration for User schema model
+var User = require('./models/User');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

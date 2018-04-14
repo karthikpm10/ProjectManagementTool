@@ -2,7 +2,15 @@
 <html>
   <head>
     <title><%= title %></title>
+    
+    <!-- Bootstrap css and js CDN's -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <!-- Custom stylesheets -->
     <link rel='stylesheet' href='/stylesheets/style.css' />
+
   </head>
   <body>
     <h1><%= title %></h1>
@@ -13,6 +21,43 @@
       <li><a href="/project">Projects </a> </li>
       <li><a href="/sprint">Sprints </a> </li>
       <li><a href="/task">Tasks </a> </li>
+    </ul>
+
+    <form class="form-signin" role="form" action="/login" method="post">
+     
+      <div class="container">
+        <label><b>Email ID</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+  
+        <label><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+          
+        <button type="submit">Login</button>
+        <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
+      </div>
+    </form>
+
+    <form class="form-signin" role="form" action="/register" method="post">
+      
+       <div class="container">
+
+          <label><b>Full Name</b></label>
+          <input type="text" placeholder="Enter Fullname" name="name" required>
+
+         <label><b>Email ID</b></label>
+         <input type="text" placeholder="Enter Username" name="username" required>
+   
+         <label><b>Password</b></label>
+         <input type="password" placeholder="Enter Password" name="password" required>
+
+         <label for="description">About yourself:</label>
+         <textarea class="form-control" rows="3" id="description" placeholder="Mention your skillset, experience and technical interests"></textarea>
+         
+         <button type="submit">Register</button>
+         <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
+       </div>
+     </form>
+    
 
   </body>
 </html>
