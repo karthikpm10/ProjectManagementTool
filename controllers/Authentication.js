@@ -4,6 +4,7 @@ var User = require("../models/User");
 
 var userController = {};
 
+
 // Registering a User into Database
 userController.register = function (request, response) {
 
@@ -15,7 +16,9 @@ userController.register = function (request, response) {
     User.register(new User({ username: user, name: name, description: desc }), pass, function (err, user) {
 
         if (err) {
-            return response.render('/', { title: 'Project Management Tool' });
+            
+            var string = encodeURIComponent('registration failed');
+            return res.redirect('/?status=' + string); 
         }
 
         passport.authenticate('local')(request, response, function () {
@@ -25,22 +28,21 @@ userController.register = function (request, response) {
 
     });
 
-    //console.log(username);
-
 };
 
 // Login function for user
 userController.login = function (req, res, next) {
     passport.authenticate('local', function (err, user) {
+        
         if (err) { return next(err) }
+        
         if (!user) {
-            //res.local("username", req.body.username);
 
             var string = encodeURIComponent('login failed');
             return res.redirect('/?status=' + string);
         }
 
-        // make passportjs setup the user object, serialize the user, ...
+        // make passportjs setup the user object, serialize the user,
         req.login(user, {}, function (err) {
             if (err) { return next(err) };
             return res.redirect("/profile");
@@ -49,6 +51,7 @@ userController.login = function (req, res, next) {
     return;
 }
 
+//Logout function, deserialize, and remove user from cookie
 userController.logout = function (req, res, next) {
     req.logout();
 

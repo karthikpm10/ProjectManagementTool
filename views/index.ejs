@@ -1,63 +1,163 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    
-    <!-- Bootstrap css and js CDN's -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
-    <!-- Custom stylesheets -->
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <!-- Bootstrap, jQuery, AngularJS Materials CDN's -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    
-    <h2> Pages </h2>
-    <ul>
-      <li><a href="/profile">Profile </a> </li>
-      <li><a href="/project">Projects </a> </li>
-      <li><a href="/sprint">Sprints </a> </li>
-      <li><a href="/task">Tasks </a> </li>
-    </ul>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <form class="form-signin" role="form" action="/login" method="post">
-     
-      <div class="container">
-        <label><b>Email ID</b></label>
-        <input type="text" placeholder="Enter Username" name="username" required>
-  
-        <label><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" required>
-          
-        <button type="submit">Login</button>
-        <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
+  <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple|3d-float">
+
+  <!-- Custom stylesheets -->
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+
+</head>
+
+<body ng-app="myApp">
+
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+  <!-- My Angular script -->
+  <script src="javascripts/angularScript.js"></script>
+
+
+  <!-- <h1><%= title %></h1> -->
+  <h1> Project Management tool </h1>
+
+  <h2> Pages </h2>
+  <ul>
+    <li><a href="/profile">Profile </a> </li>
+    <li><a href="/project">Projects </a> </li>
+    <li><a href="/sprint">Sprints </a> </li>
+    <li><a href="/task">Tasks </a> </li>
+  </ul>
+
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
+        Login
+  </button>
+
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
+      Register
+</button>
+
+ <!-- Login Modal -->
+
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 15px;">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          <div class="panel-heading">
+            <div class="font-effect-shadow-multiple heading">LOGIN !</div>
+          </div>
+          <hr>
+          <form name="loginForm" class="form-signin" role="form" action="/login" method="post">
+
+            <md-input-container class="md-block">
+              <label>Email Address</label>
+              <input required name="username" ng-model="user.username" minlength="4" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+
+              <div ng-messages="loginForm.username.$error" role="alert">
+                <div ng-message-exp="['pattern']">
+                  It doesn't look like an e-mail address.
+                </div>
+              </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Password</label>
+              <input name="password" type="password" name="password" minlength="4" ng-model="user.password" required />
+
+              <div ng-messages="loginForm.password.$error" role="alert">
+                <div ng-message-exp="['minlength']">
+                  Password is required
+                </div>
+              </div>
+            </md-input-container>
+
+            <div class="submitButton">
+              <button type="submit" class="btn btn-success loginButton" ng-disabled="!(!!user.username && !!user.password)">Login</button>
+            </div>
+          </form>
+        </div>
+
       </div>
-    </form>
+    </div>
+  </div>
 
-    <form class="form-signin" role="form" action="/register" method="post">
-      
-       <div class="container">
+  <!-- Register Modal -->
 
-          <label><b>Full Name</b></label>
-          <input type="text" placeholder="Enter Fullname" name="name" required>
+  <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-hidden="true" >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+  
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 15px;">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            <div class="panel-heading">
+              <div class="font-effect-shadow-multiple heading">REGISTER :)</div>
+            </div>
+            <hr>
+            <form name="registerForm" class="form-signin" role="form" action="/login" method="post">
+  
+              <md-input-container class="md-block">
+                <label>Email Address</label>
+                <input required name="username" ng-model="user.username" minlength="4" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+  
+                <div ng-messages="registerForm.username.$error" role="alert">
+                  <div ng-message-exp="['pattern']">
+                    It doesn't look like an e-mail address.
+                  </div>
+                </div>
+              </md-input-container>
 
-         <label><b>Email ID</b></label>
-         <input type="text" placeholder="Enter Username" name="username" required>
-   
-         <label><b>Password</b></label>
-         <input type="password" placeholder="Enter Password" name="password" required>
+              <md-input-container class="md-block" flex-gt-sm>
+                  <label>Password</label>
+                  <input name="password" type="password" name="password" ng-model="user.password" required/>
+                  <div ng-messages="registerForm.password.$error" role="alert">
+                      <div ng-message="required">Password is required </div>
+                  </div>
+              </md-input-container>
 
-         <label for="description">About yourself:</label>
-         <textarea class="form-control" rows="3" id="description" placeholder="Mention your skillset, experience and technical interests"></textarea>
-         
-         <button type="submit">Register</button>
-         <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
-       </div>
-     </form>
-    
+              <!-- Confirm password block -->
+              <md-input-container class="md-block">
+                  <label>Confirm Password</label>
+                  <input type="password" name="confirm_password" ng-model="user.confirm_password" compare-to="user.password" />
+                  <div ng-messages="registerForm.confirm_password.$error" role="alert" class="form-errors first-name-error">
+                      <div ng-message="required">Password is required.</div>
+                      <div ng-message="compareTo">Passwords are not matching</div>
+                  </div>
+              </md-input-container>
+  
+              <div class="submitButton">
+                <button type="submit" class="btn btn-primary loginButton" ng-disabled="!(!!user.username && !!user.password && user.confirm_password)" >Register</button>
+              </div>
+            </form>
+          </div>
+  
+        </div>
+      </div>
+    </div>
 
-  </body>
+</body>
+
 </html>
