@@ -9,13 +9,14 @@ var User = require("../models/User");
 router.get('/', function(req, res, next) {
 
   var status = req.query.status;
+  //var user = req.user;
 
   if(!status){
     status = "";
   }
- // console.log(status)
+  console.log(req.user);
   
-  res.render('index', { status: JSON.stringify(status)});
+  res.render('index', { status: JSON.stringify(status), user: req.user});
 });
 
 router.post('/login', auth.login);
