@@ -19,7 +19,7 @@ userController.register = function (request, response) {
         if (err) {
             
             var string = encodeURIComponent('registration failed');
-            return res.redirect('/?status=' + string); 
+            return response.redirect('/?status=' + string); 
         }
 
         passport.authenticate('local')(request, response, function () {

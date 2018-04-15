@@ -47,12 +47,13 @@
   </ul>
 
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
-        Login
+        Sign In
   </button>
 
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
       Register
 </button>
+
 
   <!-- Login Modal -->
 
@@ -64,38 +65,50 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 15px;">
                 <span aria-hidden="true">&times;</span>
               </button>
+
           <div class="panel-heading">
-            <div class="font-effect-shadow-multiple heading">LOGIN !</div>
+            <div class="font-effect-shadow-multiple heading">SIGN IN !</div>
           </div>
           <hr>
-          <form name="loginForm" class="form-signin" role="form" action="/login" method="post">
 
-            <md-input-container class="md-block">
-              <label>Email Address</label>
-              <input required name="username" ng-model="user.username" minlength="4" maxlength="100" ng-pattern="/^.+@.+\..+$/">
-
-              <div ng-messages="loginForm.username.$error" role="alert">
-                <div ng-message-exp="['pattern']">
-                  It doesn't look like an e-mail address.
-                </div>
-              </div>
-            </md-input-container>
-
-            <md-input-container class="md-block" flex-gt-sm>
-              <label>Password</label>
-              <input name="password" type="password" name="password" minlength="4" ng-model="user.password" required />
-
-              <div ng-messages="loginForm.password.$error" role="alert">
-                <div ng-message-exp="['minlength']">
-                  Password is required
-                </div>
-              </div>
-            </md-input-container>
-
-            <div class="submitButton">
-              <button type="submit" class="btn btn-success loginButton" ng-disabled="!(!!user.username && !!user.password)">Login</button>
+          <% if(JSON.parse(status) == 'login failed'){%>
+            <div class="alert alert-danger alert-dismissible" style="margin-top:15px;">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Sign in Failed!</strong> Please try again.
             </div>
-          </form>
+            <% } %>
+
+              <form name="loginForm" class="form-signin" role="form" action="/login" method="post">
+
+                <md-input-container class="md-block">
+                  <label>Email Address</label>
+                  <input required name="username" ng-model="user.username" minlength="4" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+
+                  <div ng-messages="loginForm.username.$error" role="alert">
+                    <div ng-message-exp="['pattern']">
+                      It doesn't look like an e-mail address.
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                  <label>Password</label>
+                  <input name="password" type="password" name="password" minlength="4" ng-model="user.password" required />
+
+                  <div ng-messages="loginForm.password.$error" role="alert">
+                    <div ng-message-exp="['minlength']">
+                      Password is required
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <div class="submitButton">
+                  <button type="submit" class="btn btn-success loginButton" ng-disabled="!(!!user.username && !!user.password)">Login</button>
+                </div>
+                <!-- <%=status %> -->
+
+
+              </form>
         </div>
 
       </div>
@@ -116,6 +129,12 @@
             <div class="font-effect-shadow-multiple heading">REGISTER :)</div>
           </div>
           <hr>
+          <% if(JSON.parse(status) == 'registration failed'){%>
+            <div class="alert alert-danger alert-dismissible" style="margin-top:15px;">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Registration Failed!</strong> Please try again.
+            </div>
+            <% } %>
           <form name="registerForm" class="form-signin" role="form" action="/register" method="post">
 
             <md-input-container class="md-block">
@@ -160,7 +179,7 @@
 
             <md-input-container class="md-block">
               <label>Describe yourself</label>
-              <textarea name="description" ng-model="user.description" md-maxlength="150" rows="3" placeholder="Your skillset, experience and technical interests"
+              <textarea name="description" ng-model="user.description" md-maxlength="150" rows="1" placeholder="Your skillset, experience and technical interests"
                 md-select-on-focus></textarea>
             </md-input-container>
 
@@ -178,5 +197,25 @@
   </div>
 
 </body>
+
+<!-- JQuery scripting for modal bootstrap-->
+
+<script>
+  $(document).ready(function () {
+
+    var status = JSON.parse('<%- status %>');
+    //console.log(JSON.parse('<%- status %>'));
+
+    if (status == 'login failed') {
+      $('#loginModal').modal('show');
+    }
+    else if (status == 'registration failed') {
+      $('#registerModal').modal('show');
+    }
+
+  });
+
+</script>
+
 
 </html>
