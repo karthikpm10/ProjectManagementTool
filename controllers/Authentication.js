@@ -12,8 +12,9 @@ userController.register = function (request, response) {
     var pass = request.body.password;
     var name = request.body.name;
     var desc = request.body.description;
+    var univ = request.body.university;
 
-    User.register(new User({ username: user, name: name, description: desc }), pass, function (err, user) {
+    User.register(new User({ username: user, name: name, description: desc, university: univ }), pass, function (err, user) {
 
         if (err) {
             

@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
   var status = req.query.status;
   console.log(status)
   
-  res.render('index', { title: 'Project Management Tool' });
+  res.render('index', { });
 });
 
 router.post('/login', auth.login);
