@@ -13,10 +13,13 @@ mongoose.Promise = global.Promise;
 
 //Connecting the local database
 //Change the DB name to your local database name
-mongoose.connect('mongodb://localhost/IPDatabase')
-  .then(() => console.log('connection to local database succesful'))
-  .catch((err) => console.error(err));
-
+// mongoose.connect('mongodb://localhost/IPDatabase')
+//   .then(() => console.log('connection to local database succesful'))
+//   .catch((err) => console.error(err));
+//mongodb://<dbuser>:<dbpassword>@ds147589.mlab.com:47589/pmtooldb
+ mongoose.connect('mongodb://abhijit93:abhijit93@ds147589.mlab.com:47589/pmtooldb')
+   .then(() =>  console.log('connection to remote database succesful'))
+   .catch((err) => console.error(err));
 
 var indexRouter = require('./routes/index');
 var profileRouter = require('./routes/profile');
