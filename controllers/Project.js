@@ -6,17 +6,29 @@ var projectController = {};
 
 
 // Insert a Project into Database
-projectController.insert = function (request, response) {
+//    var data = await Session.findOne({ username: req.body.username, session_id: new ObjectId(req.body.session_id) });
+projectController.insert = async (request, response)=>{
 
-
+ 
     
-   var membersList = request.body.members.split(",");
+   var membersList = request.body.member.split(",");
+   var validmemberList = [];
+
+for(var i=0;i<membersList.length;i++)
+{
+    var user = await Users.findOne({username:membersList[i]}); 
+      if( user != null)
+      {
+        validmemberList.push(membersList[i]);
+      }
+}
+
     var projectObj = new Project({
         project_id: new mongoose.Types.ObjectId(),
         name: request.body.name,
         description: request.body.description,
         lead: request.user.username,
-        members: membersList,
+        members: validmemberList,
         start_date: request.body.start_date,
         end_date: request.body.end_date
     });
@@ -33,7 +45,7 @@ projectController.insert = function (request, response) {
             });
 
             
-            membersList.forEach(element => {
+            validmemberList.forEach(element => {
                conditions = {username:element};
                Users.findOneAndUpdate(conditions,update,function(err,resp)
             {
