@@ -5,18 +5,122 @@
   <title>
     <%= title %>
   </title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- Google Fonts API -->
+  <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple|3d-float">
+
+  <!-- Custom stylesheets -->
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
+
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+  <!-- My Angular script -->
+  <script src="javascripts/angularScript.js"></script>
+
   <h1>
     <%= title %>
   </h1>
-  <h2>Welcome <%=user.name %> </h2>
+  <h2>Welcome
+    <%=user.name %>
+  </h2>
   <!-- <p>Welcome to <%= title %></p> -->
-  <a href="../logout"> <button type="button" class="btn btn-primary">
-        Sign out
-  </button></a>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#projectModal">
+    Create Project
+  </button>
+  <a href="../logout">
+    <button type="button" class="btn btn-primary">
+      Sign out
+    </button>
+  </a>
+
+  <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 15px;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="panel-heading">
+            <div class="font-effect-shadow-multiple heading">CREATE PROJECT :)</div>
+          </div>
+          <hr>
+
+
+          <form name="registerForm" class="form-signin" role="form" action="/register" method="post">
+
+
+            <label>Name</label>
+            <input type="name" class="form-control" id="name">
+            <br />
+
+
+            <label>Description:</label>
+            <textarea class="form-control" rows="5" id="description"></textarea>
+            <br />
+
+            <label>Members</label>
+            <input type="member" class="form-control" id="member">
+            <br />
+            <!-- <md-input-container class="md-block">
+                <label>Members</label>
+                <input required name="username" ng-model="user.username" minlength="4" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+  
+                <div ng-messages="registerForm.username.$error" role="alert">
+                  <div ng-message-exp="['pattern']">
+                    It doesn't look like an e-mail address.
+                  </div>
+                </div>
+              </md-input-container> -->
+
+            <div class="container col-md-12">
+              <div class="row">
+                
+                <div class="col-md-5">
+                    <label for="example-date-input">Start Date:</label>
+                  <input class="form-control" type="date" id="example-date-input">
+                </div>
+
+                <div class="col-md-2">
+                
+                </div>
+
+                
+                <div class="col-md-5">
+                    <label for="example-date-output" >End Date:</label>
+                  <input class="form-control" type="date" id="example-date-output">
+                  <br />
+                </div>
+              </div>
+            </div>
+            
+
+            <div class="submitButton">
+              <button type="submit" class="btn btn-primary">Create Project</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
 </body>
 

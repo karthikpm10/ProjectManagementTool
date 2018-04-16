@@ -1,9 +1,13 @@
 # ProjectManagementTool
 
 A Project Management Tool to collaborate, design and develop Projects
+<<<<<<< HEAD
+IP Project Spring 2018
+=======
 
 IP Project 
 
+>>>>>>> 008c29866d64951a7cef55d4068e5335dd917848
 Team members
 
 
