@@ -1,10 +1,11 @@
 # ProjectManagementTool
-
 A Project Management Tool to collaborate, design and develop Projects
 <<<<<<< HEAD
 IP Project Spring 2018
 =======
 
+<<<<<<< HEAD
+=======
 IP Project 
 
 >>>>>>> 008c29866d64951a7cef55d4068e5335dd917848
@@ -46,3 +47,4 @@ npm start
 ### Setup MongoDB
 
 ~ Todo ~
+>>>>>>> 384e303ff493a939221a4c9cf64c912d804fa89a
