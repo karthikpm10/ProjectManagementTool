@@ -1,14 +1,18 @@
 var express = require('express');
 var router = express.Router();
-var project = require("../controllers/Project");
+var projectcontroller = require("../controllers/Project");
+
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', async(req, res) => {
   console.log(req.user);
-  res.render('profile', { title: 'Profile Page', user: req.user });
+
+  await projectcontroller.getprojects(req , res);
+
+  
 });
 
 
 
-router.post('/InsertProject', project.insert);
+router.post('/InsertProject', projectcontroller.insert);
 module.exports = router;
