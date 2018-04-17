@@ -9,6 +9,6 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/InsertProject', project.insert);
 
+router.post('/InsertProject', project.insert);
 module.exports = router;
