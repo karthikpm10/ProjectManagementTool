@@ -33,7 +33,10 @@ validmemberList.has(request.user.username) ? true :validmemberList.add(request.u
         end_date: request.body.end_date
     });
     projectObj.save(function (err, resp) {
-        if (err) return console.error(err);
+        if (err) {
+            return console.error(err)
+            response.redirect('index');
+        }
         else {
            
             var conditions ;
@@ -44,9 +47,12 @@ validmemberList.has(request.user.username) ? true :validmemberList.add(request.u
                Users.findOneAndUpdate(conditions,update,function(err,resp)
             {
                 if(err) return console.error(err);
+                
 
             });
             });
+
+            response.redirect('/');
             
         }
 
@@ -54,6 +60,26 @@ validmemberList.has(request.user.username) ? true :validmemberList.add(request.u
 );
 };
 
+projectController.getprojects = async(request) =>{
+
+    var user = await Users.findOne({username:request.user.username}); 
+      if( user != null)
+      {
+        var projectlist =  user.project_id;
+        var newProjectList = [];
+        for(var i=0;i<projectlist.length;i++){
+            newProjectList.push(new mongoose.Types.ObjectId(projectlist[i]));
+        } 
+        var condition = {$in:newProjectList};
+        await Project.find({
+            'project_id' :  condition
+        },function(err,res){
+            return res;
+        })
+      }
+
+
+};
 
 
 module.exports = projectController;
