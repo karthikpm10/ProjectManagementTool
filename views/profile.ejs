@@ -64,20 +64,20 @@
           <hr>
 
 
-          <form name="registerForm" class="form-signin" role="form" action="/register" method="post">
+          <form name="projectForm" class="form-signin" role="form" action="profile/InsertProject" method="post">
 
 
             <label>Name</label>
-            <input type="name" class="form-control" id="name">
+            <input type="text" class="form-control" name="name">
             <br />
 
 
             <label>Description:</label>
-            <textarea class="form-control" rows="5" id="description"></textarea>
+            <textarea class="form-control" rows="5" name="description"></textarea>
             <br />
 
             <label>Members</label>
-            <input type="member" class="form-control" id="member">
+            <input type="text" class="form-control" name="member">
             <br />
             <!-- <md-input-container class="md-block">
                 <label>Members</label>
@@ -95,7 +95,7 @@
                 
                 <div class="col-md-5">
                     <label for="example-date-input">Start Date:</label>
-                  <input class="form-control" type="date" id="example-date-input">
+                  <input class="form-control" type="date" id="example-date-input" name="start_date">
                 </div>
 
                 <div class="col-md-2">
@@ -105,7 +105,7 @@
                 
                 <div class="col-md-5">
                     <label for="example-date-output" >End Date:</label>
-                  <input class="form-control" type="date" id="example-date-output">
+                  <input class="form-control" type="date" id="example-date-output" name="end_date">
                   <br />
                 </div>
               </div>
