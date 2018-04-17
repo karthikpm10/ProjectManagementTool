@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var projectcontroller = require("../controllers/Project");
+var projectcontroller = require("../controllers/ProjectController");
 
 
 /* GET home page. */
