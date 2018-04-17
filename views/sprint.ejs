@@ -1,12 +1,122 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <!-- <p>Welcome to <%= title %></p> -->
 
-  </body>
+<head>
+  <title>Project Management</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- Google Fonts API -->
+  <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple|3d-float">
+
+  <!-- Custom stylesheets -->
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+  <!-- My Angular script -->
+  <script src="javascripts/angularScript.js"></script>
+
+  <h1>
+    Creation of Task
+  </h1>
+  <h2>Welcome
+    <%=user.name %>
+  </h2>
+  <!-- <p>Welcome to <%= title %></p> -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#taskModal">
+    Create Task
+  </button>
+  <a href="../logout">
+    <button type="button" class="btn btn-primary">
+      Sign out
+    </button>
+  </a>
+  <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 15px;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="panel-heading">
+            <div class="font-effect-shadow-multiple heading">CREATE TASK :)</div>
+          </div>
+          <hr>
+          <form name="taskForm" class="form-signin" role="form" method="post" action="/sprint" id="taskForm">
+
+
+            <label>Name</label>
+            <input type="text" class="form-control" name="name">
+            <br />
+
+
+            <label>Description:</label>
+            <textarea class="form-control" rows="5" name="description"></textarea>
+            <br />
+
+            <div class="container col-md-12">
+              <div class="row">
+
+                <div class="col-md-5">
+                  <label for="startDate">Start Date:</label>
+                  <input class="form-control" type="date" id="startDate">
+                </div>
+
+                <div class="col-md-2">
+
+                </div>
+
+
+                <div class="col-md-5">
+                  <label for="endDate">End Date:</label>
+                  <input class="form-control" type="date" id="endDate">
+                  <br />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="submitButton">
+              <button type="submit" class="btn btn-primary">Create Task</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+     $(document).ready(function () {
+
+    $("#endDate").change(function () {
+      var startDate = document.getElementById("startDate").value;
+      var endDate = document.getElementById("endDate").value;
+
+      if ((Date.parse(endDate) <= Date.parse(startDate))) {
+        alert("End date should be greater than Start date");
+        document.getElementById("endDate").value = "";
+      }
+    });
+  });
+  </script>
+
+</body>
+
 </html>
