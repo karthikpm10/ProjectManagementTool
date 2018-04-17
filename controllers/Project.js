@@ -52,7 +52,7 @@ validmemberList.has(request.user.username) ? true :validmemberList.add(request.u
             });
             });
 
-            response.redirect('/');
+            response.redirect('/profile');
             
         }
 
@@ -60,23 +60,29 @@ validmemberList.has(request.user.username) ? true :validmemberList.add(request.u
 );
 };
 
-projectController.getprojects = async(request) =>{
+projectController.getprojects = async(req , res) =>{
 
-    var user = await Users.findOne({username:request.user.username}); 
-      if( user != null)
-      {
-        var projectlist =  user.project_id;
-        var newProjectList = [];
-        for(var i=0;i<projectlist.length;i++){
-            newProjectList.push(new mongoose.Types.ObjectId(projectlist[i]));
-        } 
-        var condition = {$in:newProjectList};
-        await Project.find({
-            'project_id' :  condition
-        },function(err,res){
-            return res;
-        })
+     //var user = await Users.findOne({username:req.user.username}); 
+  if( req.user != null)
+    {
+    var projectlist =  req.user.project_id;
+    var newProjectList = [];
+    for(var i=0;i<projectlist.length;i++){
+        newProjectList.push(new mongoose.Types.ObjectId(projectlist[i]));
+    } 
+    var condition = {$in:newProjectList};
+    await Project.find({'project_id' :  condition},function(err,docs){
+      if(err){
+        res.render('index', { title: 'Index Page'});
       }
+      res.render('profile',  { title: 'Profile Page', user: req.user, projects: docs });
+        
+      })
+    
+
+    
+
+  }
 
 
 };
