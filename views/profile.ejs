@@ -50,41 +50,37 @@
     </button>
   </a>
 
-  <%for(var i=0;i<projects.length;i++){%>
-    <%= projects[i].name %>
-    <%}%>
+
+        <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+              <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 15px;">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="panel-heading">
+                  <div class="font-effect-shadow-multiple heading">CREATE PROJECT :)</div>
+                </div>
+                <hr>
 
 
-  <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-
-        <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 15px;">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <div class="panel-heading">
-            <div class="font-effect-shadow-multiple heading">CREATE PROJECT :)</div>
-          </div>
-          <hr>
+                <form name="projectForm" class="form-signin" role="form" action="profile/InsertProject" method="post">
 
 
-          <form name="projectForm" class="form-signin" role="form" action="profile/InsertProject" method="post">
+                  <label>Name</label>
+                  <input type="text" class="form-control" name="name">
+                  <br />
 
 
-            <label>Name</label>
-            <input type="text" class="form-control" name="name">
-            <br />
+                  <label>Description:</label>
+                  <textarea class="form-control" rows="5" name="description"></textarea>
+                  <br />
 
-
-            <label>Description:</label>
-            <textarea class="form-control" rows="5" name="description"></textarea>
-            <br />
-
-            <label>Members</label>
-            <input type="text" class="form-control" name="member">
-            <br />
-            <!-- <md-input-container class="md-block">
+                  <label>Members</label>
+                  <input type="text" class="form-control" name="member">
+                  <br />
+                  <!-- <md-input-container class="md-block">
                 <label>Members</label>
                 <input required name="username" ng-model="user.username" minlength="4" maxlength="100" ng-pattern="/^.+@.+\..+$/">
   
@@ -95,118 +91,60 @@
                 </div>
               </md-input-container> -->
 
-            <div class="container col-md-12">
-              <div class="row">
-                
-                <div class="col-md-5">
-                    <label for="example-date-input">Start Date:</label>
-                  <input class="form-control" type="date" id="example-date-input" name="start_date">
-                </div>
+                  <div class="container col-md-12">
+                    <div class="row">
 
-                <div class="col-md-2">
-                
-                </div>
+                      <div class="col-md-5">
+                        <label for="example-date-input">Start Date:</label>
+                        <input class="form-control" type="date" id="example-date-input" name="start_date">
+                      </div>
 
-                
-                <div class="col-md-5">
-                    <label for="example-date-output" >End Date:</label>
-                  <input class="form-control" type="date" id="example-date-output" name="end_date">
-                  <br />
-                </div>
+                      <div class="col-md-2">
+
+                      </div>
+
+
+                      <div class="col-md-5">
+                        <label for="example-date-output">End Date:</label>
+                        <input class="form-control" type="date" id="example-date-output" name="end_date">
+                        <br />
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="submitButton">
+                    <button type="submit" class="btn btn-primary">Create Project</button>
+                  </div>
+                </form>
               </div>
-            </div>
-            
 
-            <div class="submitButton">
-              <button type="submit" class="btn btn-primary">Create Project</button>
             </div>
-          </form>
+          </div>
         </div>
 
-      </div>
-    </div>
-  </div>
+        <div class="panel-heading">
+          <div class="font-effect-shadow-multiple heading">LIST OF PROJECTS</div>
+        </div>
 
-  <div class="panel-heading">
-      <div class="font-effect-shadow-multiple heading">LIST OF PROJECTS</div>
-    </div>
-  <div class = "container2">
-    <div class="fancy"><h3>
-        Project 1
-    </h3></a>
-    <h4>
-        Gautham
-    </div>
-
-    <div class="fancy"><h3>
-        Project 2
-    </h3></a>
-    <h4>
-        Gautham
-    </div>
-
-    <div class="fancy"><h3>
-        Project 3
-    </h3></a>
-    <h4>
-        Gautham
-    </div>
-
-    <div class="fancy"><h3>
-        Project 4
-    </h3></a>
-    <h4>
-        Gautham
-    </div>
-    
-    <div class="fancy"><h3>
-        Project 5
-    </h3></a>
-    <h4>
-        Gautham
-    </div>
-
-    <div class="fancy"><h3>
-        Project 6
-    </h3></a>
-    <h4>
-        Gautham
-    </div>
-
-    <div class="fancy"><h3>
-        Project 7
-    </h3></a>
-    <h4>
-        Gautham
-    </div>
-
-    <div class="fancy"><h3>
-        Project 8
-    </h3></a>
-    <h4>
-        Gautham
-    </div>
-
-    <div class="fancy"><h3>
-        Project 1
-    </h3></a>
-    <h4>
-        Gautham
-    </div>
-
-    <div class="fancy"><h3>
-        Project 9
-    </h3></a>
-    <h4>
-        Gautham
-    </div>
-
-    <div class="fancy"><h3>
-        Project 10
-    </h3></a>
-    <h4>
-        Gautham
-    </div>
+        <div class="container2">
+      
+      <% for(var i = 0; i < projects.length; ++i) {%>
+<% var url = "../project/"+projects[i].name %>
+       
+          
+        
+        <div class="fancy ">
+            <a href=<%= url %>>
+              <h3>
+            - <%=projects[i].name%>
+        </h3></a>
+        <h4>
+            - <%=projects[i].lead%>
+        </h4>
+        </div>
+      
+        <% } %>
 
   </div>
 </body>
