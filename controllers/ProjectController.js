@@ -1,4 +1,3 @@
-
 var mongoose = require("mongoose");
 var Project = require("../models/Project");
 var Users = require("../models/User");
@@ -78,10 +77,6 @@ projectController.getprojects = async(req , res) =>{
       res.render('profile',  { title: 'Profile Page', user: req.user, projects: docs });
         
       })
-    
-
-    
-
   }
 
 
