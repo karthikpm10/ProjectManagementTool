@@ -41,11 +41,42 @@
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sprintModal">
     Create Sprint
   </button>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#memberModal">
+    Add new member
+  </button>
   <a href="../logout">
     <button type="button" class="btn btn-primary">
       Sign out
     </button>
   </a>
+  <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 15px;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="panel-heading">
+            <div class="font-effect-shadow-multiple heading">New Team member:)</div>
+          </div>
+          <hr>
+          <form name="memberForm" class="form-signin" role="form" method="post" action="/project" id="memberForm">
+
+
+            <label>New Member</label>
+            <input type="text" class="form-control" name="member">
+            <br />
+
+            <div class="submitButton">
+              <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
   <div class="modal fade" id="sprintModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -71,56 +102,68 @@
             <br />
 
             <div class="container col-md-12">
-                <div class="row">
-                  
-                  <div class="col-md-5">
-                      <label for="startDate">Start Date:</label>
-                    <input class="form-control" type="date" id="startDate">
-                  </div>
-  
-                  <div class="col-md-2">
-                  
-                  </div>
-  
-                  
-                  <div class="col-md-5">
-                      <label for="endDate" >End Date:</label>
-                    <input class="form-control" type="date" id="endDate">
-                    <br />
-                  </div>
+              <div class="row">
+
+                <div class="col-md-5">
+                  <label for="startDate">Start Date:</label>
+                  <input class="form-control" type="date" id="startDate">
+                </div>
+
+                <div class="col-md-2">
+
+                </div>
+
+
+                <div class="col-md-5">
+                  <label for="endDate">End Date:</label>
+                  <input class="form-control" type="date" id="endDate">
+                  <br />
                 </div>
               </div>
-              
-  
-              <div class="submitButton">
-                <button type="submit" class="btn btn-primary">Create Sprint</button>
-              </div>
-            </form>
-          </div>
-  
+            </div>
+
+
+            <div class="submitButton">
+              <button type="submit" class="btn btn-primary">Create Sprint</button>
+            </div>
+          </form>
         </div>
+
       </div>
     </div>
-    <script>
-      $(document).ready(function () {
+  </div>
+  <script>
+    $(document).ready(function () {
 
-        $("#endDate").change(function () {
-          var startDate = document.getElementById("startDate").value;
-          var endDate = document.getElementById("endDate").value;
-    
-          if ((Date.parse(endDate) <= Date.parse(startDate))) {
-            alert("End date should be greater than Start date");
-            document.getElementById("endDate").value = "";
-          }
-        });
-        function onSubmit() {
-          
-          $('sprintForm').submit();
-          
+      function validateMember() {
+
+        var member = document.getElementById("member").value;
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var flag = re.test(String(member).toLowerCase());
+
+        alert(flag);
+
+      }
+
+      $("#endDate").change(function () {
+        var startDate = document.getElementById("startDate").value;
+        var endDate = document.getElementById("endDate").value;
+
+        if ((Date.parse(endDate) <= Date.parse(startDate))) {
+          alert("End date should be greater than Start date");
+          document.getElementById("endDate").value = "";
         }
-      
       });
-      </script>
+
+      $('#memberForm').submit(function (e) {
+        if(!validateMember()){
+          e.preventDefault();
+        }
+       //alert("hello");
+      });
+
+    });
+  </script>
 </body>
 
 </html>

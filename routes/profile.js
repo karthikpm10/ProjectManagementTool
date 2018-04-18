@@ -1,15 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var projectcontroller = require("../controllers/Project");
+var projectcontroller = require("../controllers/ProjectController");
 
 
 /* GET home page. */
 router.get('/', async(req, res) => {
-  console.log(req.user);
-
-  await projectcontroller.getprojects(req , res);
-
-  
+  await projectcontroller.getprojects(req , res);  
 });
 
 

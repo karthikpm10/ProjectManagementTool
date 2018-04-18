@@ -52,6 +52,10 @@
     </button>
   </a>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4cb7351d8988455e60b58ff00e8cfbaadaf8bd35
 
         <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
@@ -71,6 +75,7 @@
 
 
 
+<<<<<<< HEAD
                   <label>Name</label>
                   <input type="text" class="form-control" name="name">
                   <br />
@@ -79,6 +84,16 @@
                   <label>Description:</label>
                   <textarea class="form-control" rows="5" name="description"></textarea>
                   <br />
+=======
+            <label>Name</label>
+            <input type="text" class="form-control" name="name" required >
+            <br />
+
+
+            <label>Description:</label>
+            <textarea class="form-control" rows="5" name="description" required ></textarea>
+            <br />
+>>>>>>> 4cb7351d8988455e60b58ff00e8cfbaadaf8bd35
 
             <label>Members</label>
 
@@ -92,7 +107,7 @@
                 <div class="col-md-5">
 
                   <label for="startDate">Start Date:</label>
-                  <input class="form-control" type="date" id="startDate">
+                  <input class="form-control" type="date" id="startDate" required>
                 </div>
 
                 <div class="col-md-2">
@@ -103,7 +118,7 @@
                 <div class="col-md-5">
 
                   <label for="endDate">End Date:</label>
-                  <input class="form-control" type="date" id="endDate">
+                  <input class="form-control" type="date" id="endDate" required>
                   <br />
                 </div>
               </div>
@@ -155,20 +170,36 @@
        //alert("hello");
       });
 
-      function onSubmit() {
-        if (validateMember()) {
-          $('projectForm').submit();
-        }
-        else {
-          
-        }
-      }
+      
 
     });
 
   </script>
 
+<div class="panel-heading">
+  <div class="font-effect-shadow-multiple heading">LIST OF PROJECTS</div>
+</div>
 
+<div class="container2">
+      
+  <% for(var i = 0; i < projects.length; ++i) {%>
+<% var url = "../project/"+projects[i].name %>
+   
+      
+    
+    <div class="fancy ">
+        <a href=<%= url %>>
+          <h3>
+        - <%=projects[i].name%>
+    </h3></a>
+    <h4>
+        - <%=projects[i].lead%>
+    </h4>
+    </div>
+  
+    <% } %>
+
+<<<<<<< HEAD
         <div class="container2">
       
       <% for(var i = 0; i < projects.length; ++i) {%>
@@ -189,6 +220,9 @@
         <% } %>
 
   </div>
+=======
+</div>
+>>>>>>> 4cb7351d8988455e60b58ff00e8cfbaadaf8bd35
 </body>
 
 </html>
