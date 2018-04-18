@@ -52,39 +52,27 @@
     </button>
   </a>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 4cb7351d8988455e60b58ff00e8cfbaadaf8bd35
 
-        <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
 
-              <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 15px;">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <div class="panel-heading">
-                  <div class="font-effect-shadow-multiple heading">CREATE PROJECT :)</div>
-                </div>
-                <hr>
+  <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 15px;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="panel-heading">
+            <div class="font-effect-shadow-multiple heading">CREATE PROJECT :)</div>
+          </div>
+          <hr>
 
 
           <form name="projectForm" class="form-signin" role="form" action="profile/InsertProject" method="post" id="projectForm">
 
 
 
-<<<<<<< HEAD
-                  <label>Name</label>
-                  <input type="text" class="form-control" name="name">
-                  <br />
-
-
-                  <label>Description:</label>
-                  <textarea class="form-control" rows="5" name="description"></textarea>
-                  <br />
-=======
             <label>Name</label>
             <input type="text" class="form-control" name="name" required >
             <br />
@@ -93,7 +81,6 @@
             <label>Description:</label>
             <textarea class="form-control" rows="5" name="description" required ></textarea>
             <br />
->>>>>>> 4cb7351d8988455e60b58ff00e8cfbaadaf8bd35
 
             <label>Members</label>
 
@@ -125,24 +112,23 @@
             </div>
 
 
+            <div class="submitButton">
+              <button type="submit" class="btn btn-primary">Create Project</button>
             </div>
-          </div>
+          </form>
         </div>
 
-        <div class="panel-heading">
-          <div class="font-effect-shadow-multiple heading">LIST OF PROJECTS</div>
-        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- JQuery scripting for modal bootstrap-->
 
   <script>
     $(document).ready(function () {
-
       function validateMember() {
-
         var members = document.getElementById("members").value;
         var list = members.split(',');
-
         for (var index in list) {
           var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           var flag = re.test(String(list[index]).toLowerCase());
@@ -150,30 +136,23 @@
             return false;
         }
         return true;
-
       }
-
       $("#endDate").change(function () {
         var startDate = document.getElementById("startDate").value;
         var endDate = document.getElementById("endDate").value;
-
         if ((Date.parse(endDate) <= Date.parse(startDate))) {
           alert("End date should be greater than Start date");
           document.getElementById("endDate").value = "";
         }
       });
-
       $('#projectForm').submit(function (e) {
         if(!validateMember()){
           e.preventDefault();
         }
        //alert("hello");
       });
-
       
-
     });
-
   </script>
 
 <div class="panel-heading">
@@ -199,30 +178,7 @@
   
     <% } %>
 
-<<<<<<< HEAD
-        <div class="container2">
-      
-      <% for(var i = 0; i < projects.length; ++i) {%>
-<% var url = "../project/"+projects[i].name %>
-       
-          
-        
-        <div class="fancy ">
-            <a href=<%= url %>>
-              <h3>
-            - <%=projects[i].name%>
-        </h3></a>
-        <h4>
-            - <%=projects[i].lead%>
-        </h4>
-        </div>
-      
-        <% } %>
-
-  </div>
-=======
 </div>
->>>>>>> 4cb7351d8988455e60b58ff00e8cfbaadaf8bd35
 </body>
 
 </html>
