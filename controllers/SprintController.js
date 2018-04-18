@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var Project = require("../models/Project");
 var Users = require("../models/User");
+var Sprints = require("../models/Sprint");
 var JSAlert = require("js-alert");
 
 var sprintController = {};
@@ -46,14 +47,46 @@ sprintController.addMember = async (req, res) => {
 };
 
 sprintController.addSprint = async (req, res) => {
-    
-    console.log(req.params.id);
 
-
-    //Redirect back to this. Do not change the below line.
+    var sprint = new Sprints({
+        sprint_id: new mongoose.Types.ObjectId(),
+        project_id: new mongoose.Types.ObjectId(req.params.id),
+        name: req.body.name,
+        status:'To-do',
+        description: req.body.description,
+        start_date: req.body.startDate,
+        end_date: req.body.endDate
+    });
+    sprint.save(function (err, resp) {
+        if (err) { 
+            console.log("Sprint insertion failed");
+            res.redirect('/project/'+req.params.id);
+        }
+        else{
+            console.log("Inserted the sprint successfully");
+        }
+        
+    });
     res.redirect('/project/'+req.params.id);
     
     };
 
+
+    sprintController.listSprints = async (req, res) => {
+        var project = await Project.findOne({project_id : req.params.id});
+        var lead = await Users.findOne({username: project.lead});
+        //return all the sprints for the selected project
+        await Sprints.find({project_id :req.params.id},function(err,sprints){
+            if(err){
+                res.render('project', { title: 'Project page', user: req.user, project: project, lead: lead });
+            }  
+            else{
+                res.render('project', { title: 'Project page', user: req.user, project: project, lead: lead, sprint:sprints});    
+            }
+            })
+
+           
+
+    };
 
 module.exports = sprintController;

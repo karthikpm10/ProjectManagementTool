@@ -32,7 +32,6 @@ validmemberList.has(request.user.username) ? true :validmemberList.add(request.u
     });
     projectObj.save(function (err, resp) {
         if (err) {
-            return console.error(err)
             response.redirect('index');
         }
         else {
