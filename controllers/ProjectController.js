@@ -7,7 +7,6 @@ var projectController = {};
 
 // Insert a Project into Database
 projectController.insert = async (request, response)=>{
-
    var membersList = request.body.member.split(",");
    let validmemberList = new Set();
 
@@ -28,8 +27,8 @@ validmemberList.has(request.user.username) ? true :validmemberList.add(request.u
         description: request.body.description,
         lead: request.user.username,
         members: Array.from(validmemberList),
-        start_date: request.body.start_date,
-        end_date: request.body.end_date
+        start_date: request.body.startDate,
+        end_date: request.body.endDate
     });
     projectObj.save(function (err, resp) {
         if (err) {
