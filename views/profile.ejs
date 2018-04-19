@@ -147,6 +147,7 @@
       });
       $('#projectForm').submit(function (e) {
         if(!validateMember()){
+          alert("Enter valid email ids' separated by ,")
           e.preventDefault();
         }
        //alert("hello");

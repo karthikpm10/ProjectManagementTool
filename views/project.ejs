@@ -29,7 +29,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 
   <!-- My Angular script -->
-  <script src="javascripts/angularScript.js"></script>
+  <!-- <script src="javascripts/angularScript.js"></script> -->
 
   <h1>
     <%= project.name %> Dashboard
@@ -40,17 +40,51 @@
   <h3> Team lead :
     <%= lead.name %>
   </h3><br>
+
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sprintModal">
     Create Sprint
   </button>
+
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#memberModal">
     Add new member
   </button>
+
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#projectModal">
+    Update Project <br>information
+  </button>
+
   <a href="../logout">
     <button type="button" class="btn btn-primary">
       Sign out
     </button>
   </a>
+
+  <div class="panel-heading">
+    <div class="font-effect-shadow-multiple heading">LIST OF Sprints</div>
+  </div>
+
+  <div class="container2">
+        
+    <% for(var i = 0; i < sprints.length; ++i) {%>
+  <% var url = "../sprint/"+sprints[i].sprint_id %>
+     
+        
+      
+      <div>
+          <a href=<%= url %>>
+            <h3>
+          - <%=sprints[i].name%>
+      </h3></a>
+      <h4>
+          - <%=sprints[i].status%>
+      </h4>
+      </div>
+    
+      <% } %>
+  
+  </div>
+
+  
   <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -93,24 +127,92 @@
           </div>
           <hr>
           <% var url2 = "/project/"+project.project_id+"/AddSprint" %>
-          <form name="sprintForm" class="form-signin" role="form" method="post" action="<%=url2%>" id="sprintForm">
+            <form name="sprintForm" class="form-signin" role="form" method="post" action="<%=url2%>" id="sprintForm">
+
+
+              <label>Name</label>
+              <input type="text" class="form-control" name="name" required>
+              <br />
+
+
+              <label>Description:</label>
+              <textarea class="form-control" rows="5" name="description" required></textarea>
+              <br />
+
+              <div class="container col-md-12">
+                <div class="row">
+
+                  <div class="col-md-5">
+                    <label for="startDate">Start Date:</label>
+                    <input class="form-control" type="date" name="startDate" id="startDate" required>
+                  </div>
+
+                  <div class="col-md-2">
+
+                  </div>
+
+
+                  <div class="col-md-5">
+                    <label for="endDate">End Date:</label>
+                    <input class="form-control" type="date" name="endDate" id="endDate" required>
+                    <br />
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="submitButton">
+                <button type="submit" class="btn btn-primary">Create Sprint</button>
+              </div>
+            </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 15px;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="panel-heading">
+            <div class="font-effect-shadow-multiple heading">Update PROJECT :)</div>
+          </div>
+          <hr>
+
+          <% var url3 = "/project/"+project.project_id+"/UpdateProject" %>
+          <form name="projectForm" class="form-signin" role="form" action="<%= url3 %>" method="post" id="projectForm">
+
 
 
             <label>Name</label>
-            <input type="text" class="form-control" name="name" required>
+            <input type="text" class="form-control" name="name" value="<%= project.name %>" required>
             <br />
 
 
             <label>Description:</label>
-            <textarea class="form-control" rows="5" name="description" required></textarea>
+            <textarea class="form-control" rows="5" name="description" required><%= project.description %></textarea>
             <br />
+
+            <label>Members</label>
+
+            <input type="text" class="form-control" name="member" id="members" value="<%= project.members %>">
+            <br />
+
 
             <div class="container col-md-12">
               <div class="row">
 
                 <div class="col-md-5">
+
+                  
                   <label for="startDate">Start Date:</label>
-                  <input class="form-control" type="date" name="startDate" id="startDate" required>
+                  <input class="form-control" type="date" name="startDate" id="project_startDate"  required>
                 </div>
 
                 <div class="col-md-2">
@@ -119,8 +221,9 @@
 
 
                 <div class="col-md-5">
+
                   <label for="endDate">End Date:</label>
-                  <input class="form-control" type="date" name="endDate" id="endDate" required>
+                  <input class="form-control" type="date" name="endDate" id="project_endDate" required>
                   <br />
                 </div>
               </div>
@@ -128,7 +231,7 @@
 
 
             <div class="submitButton">
-              <button type="submit" class="btn btn-primary">Create Sprint</button>
+              <button type="submit" class="btn btn-primary">Update Project</button>
             </div>
           </form>
         </div>
@@ -139,6 +242,12 @@
   <script>
     $(document).ready(function () {
 
+      let start_date = new Date('<%- project.start_date %>').toISOString().substr(0, 10);
+      let end_date = new Date('<%- project.end_date %>').toISOString().substr(0, 10);
+      document.querySelector("#projectForm #project_startDate").value = start_date;
+      document.querySelector("#projectForm #project_endDate").value = end_date;
+
+      
       function validateMember() {
 
         var m = document.getElementById("member").value;
@@ -158,12 +267,44 @@
         }
       });
 
+      $("#project_endDate").change(function () {
+        var startDate = document.getElementById("project_startDate").value;
+        var endDate = document.getElementById("project_endDate").value;
+
+        if ((Date.parse(endDate) <= Date.parse(startDate))) {
+          alert("End date should be greater than Start date");
+          document.getElementById("project_endDate").value = end_date;
+        }
+      });
+
       $('#memberForm').submit(function (e) {
         if (!validateMember()) {
           alert("Enter a valid email address");
           e.preventDefault();
         }
         //alert("hello");
+      });
+
+      function validateMultipleMembers() {
+        var members = document.getElementById("members").value;
+        if(members == "")
+          return true;
+        var list = members.split(',');
+        for (var index in list) {
+          var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          var flag = re.test(String(list[index]).toLowerCase());
+          if (flag == false)
+            return false;
+        }
+        return true;
+      }
+
+      $('#projectForm').submit(function (e) {
+        if(!validateMultipleMembers()){
+          alert("Enter valid email ids' separated by ,")
+          e.preventDefault();
+        }
+       //alert("hello");
       });
 
     });

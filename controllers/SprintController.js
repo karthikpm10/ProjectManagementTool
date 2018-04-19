@@ -75,10 +75,10 @@ sprintController.listSprints = async (req, res) => {
     //return all the sprints for the selected project
     await Sprints.find({ project_id: req.params.id }, function (err, sprints) {
         if (err) {
-            res.render('project', { title: 'Project page', user: req.user, project: project, lead: lead });
+            res.render('project', { title: 'Project page', user: req.user, project: project, lead: lead, sprints: null });
         }
         else {
-            res.render('project', { title: 'Project page', user: req.user, project: project, lead: lead, sprint: sprints });
+            res.render('project', { title: 'Project page', user: req.user, project: project, lead: lead, sprints: sprints });
         }
     })
 
