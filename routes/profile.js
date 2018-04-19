@@ -4,11 +4,12 @@ var projectcontroller = require("../controllers/ProjectController");
 
 
 /* GET home page. */
-router.get('/', async(req, res) => {
-  await projectcontroller.getprojects(req , res);  
+router.get('/', async (req, res) => {
+  await projectcontroller.getprojects(req, res);
 });
 
 
 
-router.post('/InsertProject', projectcontroller.insert);
+router.post('/InsertProject', projectcontroller.insertProject);
+router.post('/UpdateUser', projectcontroller.updateUser);
 module.exports = router;

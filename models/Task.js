@@ -26,7 +26,11 @@ var TaskSchema = new Schema({
         reason: String
     }],
     comments: [{
-        name: String,           //Name of user0
+        userName: String,           //Name of user0
+        comment_id: {                  //Auto-generated
+            type: mongoose.Schema.Types.ObjectId,
+            auto: true
+        },
         content: String,
         timestamp: Date
     }]

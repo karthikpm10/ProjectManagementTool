@@ -19,7 +19,11 @@ var SprintSchema = new Schema({
     start_date: Date,
     end_date: Date,
     comments: [{
-        name: String,           //Name of user0
+        userName: String,           //Name of user0
+        comment_id: {                  //Auto-generated
+            type: mongoose.Schema.Types.ObjectId,
+            auto: true
+        },
         content: String,
         timestamp: Date
     }]
