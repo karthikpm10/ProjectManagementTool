@@ -41,6 +41,11 @@
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#taskModal">
     Create Task
   </button>
+
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sprintModal">
+    Update Sprint information
+  </button>
+
   <a href="../logout">
     <button type="button" class="btn btn-primary">
       Sign out
@@ -102,19 +107,81 @@
     </div>
   </div>
 
+  <div class="modal fade" id="sprintModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 15px;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="panel-heading">
+            <div class="font-effect-shadow-multiple heading">Update Sprint :)</div>
+          </div>
+          <hr>
+          <% var url2 = "/sprint/"+sprint.sprint_id+"/UpdateSprint" %>
+            <form name="sprintForm" class="form-signin" role="form" method="post" action="<%=url2%>" id="sprintForm">
+
+
+              <label>Name</label>
+              <input type="text" class="form-control" name="name" value="<%= sprint.name %>" required>
+              <br />
+
+
+              <label>Description:</label>
+              <textarea class="form-control" rows="5" name="description" required><%= sprint.description %></textarea>
+              <br />
+
+              <div class="container col-md-12">
+                <div class="row">
+
+                  <div class="col-md-5">
+                    <label for="startDate">Start Date:</label>
+                    <input class="form-control" type="date" name="startDate" id="sprint_startDate" required>
+                  </div>
+
+                  <div class="col-md-2">
+
+                  </div>
+
+
+                  <div class="col-md-5">
+                    <label for="endDate">End Date:</label>
+                    <input class="form-control" type="date" name="endDate" id="sprint_endDate" required>
+                    <br />
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="submitButton">
+                <button type="submit" class="btn btn-primary">Update Sprint</button>
+              </div>
+            </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <script>
-     $(document).ready(function () {
+    $(document).ready(function () {
 
-    $("#endDate").change(function () {
-      var startDate = document.getElementById("startDate").value;
-      var endDate = document.getElementById("endDate").value;
+      let start_date = new Date('<%- sprint.start_date %>').toISOString().substr(0, 10);
+      let end_date = new Date('<%- sprint.end_date %>').toISOString().substr(0, 10);
+      document.querySelector("#sprintForm #sprint_startDate").value = start_date;
+      document.querySelector("#sprintForm #sprint_endDate").value = end_date;
 
-      if ((Date.parse(endDate) <= Date.parse(startDate))) {
-        alert("End date should be greater than Start date");
-        document.getElementById("endDate").value = "";
-      }
+      $("#endDate").change(function () {
+        var startDate = document.getElementById("startDate").value;
+        var endDate = document.getElementById("endDate").value;
+
+        if ((Date.parse(endDate) <= Date.parse(startDate))) {
+          alert("End date should be greater than Start date");
+          document.getElementById("endDate").value = "";
+        }
+      });
     });
-  });
   </script>
 
 </body>
