@@ -90,14 +90,19 @@ sprintController.listSprints = async (req, res) => {
 sprintController.updateProject = async (req, res) => {
     var membersList = req.body.member.split(",");
     let validmemberList = new Set();
-   //checking if the user entered as a member is a valid user, and if he is not already listed as part of the project
+    let memberListToPush = new Set();
+    //checking if the user entered as a member is a valid user, and if he is not already listed as part of the project
     for (var i = 0; i < membersList.length; i++) {
         var user = await Users.findOne({ username: membersList[i] });
         var inValidMember = (user != null) ? user.project_id.some(ids => ids.equals(new mongoose.Types.ObjectId(req.params.id))) : true;
+        if (user != null) {
+            memberListToPush.add(membersList[i]);
+        }
         if (!inValidMember) {
             validmemberList.add(membersList[i]);
         }
     }
+    //validmemberList.has(request.user.username) ? true : validmemberList.add(request.user.username);
 
     Project.findOne({ project_id: new mongoose.Types.ObjectId(req.params.id) }, function (err, doc) {
         if (err) {
@@ -108,8 +113,8 @@ sprintController.updateProject = async (req, res) => {
         else {
             doc.name = req.body.name;
             doc.description = req.body.description;
-            doc.lead = req.user.username;
-            doc.members = Array.from(validmemberList);
+            //doc.lead = req.user.username;
+            doc.members = Array.from(memberListToPush);
             doc.start_date = req.body.startDate;
             doc.end_date = req.body.endDate;
             doc.save(function (err, resp) {
