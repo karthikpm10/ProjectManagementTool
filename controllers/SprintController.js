@@ -148,6 +148,14 @@ sprintController.updateProject = async (req, res) => {
 
 
 sprintController.addProjectComment = async (req, res) => {
+    var comment = new Comments({
+        comment_id: new mongoose.Types.ObjectId(),
+        userName: req.body.name,
+        content: req.body.content,
+        timestamp: req.body.timestamp
+    });
+    
+    
     /*
     create a new comment and push it to the project object
     for reference

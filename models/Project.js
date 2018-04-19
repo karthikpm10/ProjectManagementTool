@@ -14,7 +14,11 @@ var ProjectSchema = new Schema({
     end_date: Date,
     sprints: Number,        //Number of sprints
     comments: [{
-        name: String,           //Name of user0
+        userName: String,           //Name of user0
+        comment_id: {                  //Auto-generated
+            type: mongoose.Schema.Types.ObjectId,
+            auto: true
+        },
         content: String,
         timestamp: Date
     }]
