@@ -224,12 +224,10 @@ img::-moz-selection {
 
 header.masthead {
   text-align: center;
-<<<<<<< Updated upstream
   color: white;
 =======
   height:100%;
   width: 100%;
->>>>>>> Stashed changes
   background-image: url("../img/download.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
