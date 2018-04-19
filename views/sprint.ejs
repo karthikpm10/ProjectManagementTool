@@ -46,6 +46,16 @@
     Update Sprint information
   </button>
 
+  <% var backURL = "../project/"+project.project_id %>
+  <a href="<%= backURL %>">
+  <button type="button" class="btn btn-primary">
+      <span class="glyphicon glyphicon-chevron-left"></span> Project Dashboard </button> </a>
+
+      <a href="../profile">
+        <button type="button" class="btn btn-primary">
+          Profile
+        </button>
+      </a>
   <a href="../logout">
     <button type="button" class="btn btn-primary">
       Sign out
@@ -163,6 +173,15 @@
               <textarea class="form-control" rows="5" name="description" required><%= sprint.description %></textarea>
               <br />
 
+              <label>Sprint status</label>
+              <select class="form-control" id="dropdown_status" name="status">
+                  <option value='To-do'>To-do</option>
+                  <option value='In-progress'>In-progress </option>
+                  <option value='Completed'>Completed</option>
+                  </select>
+
+                  <br />
+
               <div class="container col-md-12">
                 <div class="row">
 
@@ -202,6 +221,8 @@
       let end_date = new Date('<%- sprint.end_date %>').toISOString().substr(0, 10);
       document.querySelector("#sprintForm #sprint_startDate").value = start_date;
       document.querySelector("#sprintForm #sprint_endDate").value = end_date;
+
+      $("#dropdown_status").val('<%- sprint.status %>');
 
       $("#endDate").change(function () {
         var startDate = document.getElementById("startDate").value;

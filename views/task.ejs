@@ -39,6 +39,17 @@
     Update Task
   </button>
 
+  <% var backURL = "../sprint/"+sprint.sprint_id %>
+  <a href="<%= backURL %>">
+  <button type="button" class="btn btn-primary">
+      <span class="glyphicon glyphicon-chevron-left"></span> Sprint Dashboard </button> </a>
+
+  <a href="../profile">
+    <button type="button" class="btn btn-primary">
+      Profile
+    </button>
+  </a>
+
   <a href="../logout">
     <button type="button" class="btn btn-primary">
       Sign out
@@ -66,19 +77,23 @@
             <br />
 
             <label>Assigned to</label>
-            <select class="form-control" id="dropdown" name="assignee">
+            <select class="form-control" id="dropdown_assignee" name="assignee">
                 <option>No one yet</option>
                 <% for(var i = 0; i < project.members.length; ++i) {%>
-                  <option><%= project.members[i] %></option>
+                  <option value='<%= project.members[i] %>'><%= project.members[i] %></option>
                   <% } %>
                 </select>
 
+                <br />
+
                 <label>Task status</label>
-                <select class="form-control" id="dropdown" name="status">
-                    <option>To-do</option>
-                    <option>Completed </option>
-                    <option>In-progress</option>
+                <select class="form-control" id="dropdown_status" name="status">
+                    <option value='To-do'>To-do</option>
+                    <option value='In-progress'>In-progress </option>
+                    <option value='Completed'>Completed</option>
                     </select>
+
+                    <br />
 
 
             <label>Description:</label>
@@ -125,6 +140,11 @@
       let end_date = new Date('<%- task.end_date %>').toISOString().substr(0, 10);
       document.querySelector("#startDate").value = start_date;
       document.querySelector("#endDate").value = end_date;
+
+      $("#dropdown_status").val('<%- task.status %>');
+
+      if('<%- task.assignee %>' != "")
+        $("#dropdown_assignee").val('<%- task.assignee %>');
 
 
       $("#endDate").change(function () {

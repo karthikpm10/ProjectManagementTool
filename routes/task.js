@@ -5,6 +5,7 @@ var Sprints = require("../models/Sprint");
 var Projects = require("../models/Project");
 var Tasks = require("../models/Task");
 var mongoose = require("mongoose");
+var Users = require("../models/User");
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
@@ -27,6 +28,9 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/:id/EditTask', async (req, res, next) => {
 
+  var user = await Users.findOne({ username: req.body.assignee });
+  var userName = (user != null) ? req.body.assignee : null;
+
   Tasks.findOne({ task_id: new mongoose.Types.ObjectId(req.params.id) }, function (err, doc) {
     if (err) {
       console.log("update sprint failed");
@@ -38,7 +42,8 @@ router.post('/:id/EditTask', async (req, res, next) => {
       doc.start_date = req.body.startDate;
       doc.end_date = req.body.endDate;
       doc.status = req.body.status;
-      doc.assignee = req.body.assignee;
+      doc.isAssigned = userName != null ? true : false,
+      doc.assignee = userName;
       doc.save(function (err, resp) {
         if (err) {
           console.log("update task failed");
