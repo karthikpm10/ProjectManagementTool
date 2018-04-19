@@ -46,6 +46,15 @@ hr{
   margin-top: 40px;
 }
 
+.membersClass{
+  width:70%;
+}
+
+.memberItem{
+  margin-top:7px;
+  margin-bottom: 5px;
+}
+
 .fancy {
   position: relative;
   background-color: #C7D9AF;

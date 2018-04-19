@@ -82,9 +82,19 @@
             <textarea class="form-control" rows="5" name="description" required ></textarea>
             <br />
 
-            <label>Members</label>
+            <label>Add Team members</label>&nbsp;&nbsp;&nbsp;
 
-            <input type="text" class="form-control" name="member" id="members">
+            <button type="button" class="btn btn-default add" aria-label="Left Align"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button> &nbsp;
+            <button type="button" class="btn btn-default remove" aria-label="Left Align"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </button>
+            
+            <div class="membersClass">
+            <input type="text" class="form-control memberItem">
+            </div>
+            
+            <input type="text" style="display: none;" name="member" id="members"/>
+            
+
+            <!-- <input type="text" class="form-control" name="member" id="members"> -->
             <br />
 
 
@@ -126,6 +136,17 @@
 
   <script>
     $(document).ready(function () {
+
+      $(".add").click(function(){
+        $(".membersClass").append('<input type="text" class="form-control memberItem">');
+    });
+
+    $(".remove").click(function(){
+      var parent = $(".membersClass");
+    	if($(parent).children().length > 1)
+    		$(parent).children().last().remove();
+    });
+
       function validateMember() {
         var members = document.getElementById("members").value;
         var list = members.split(',');
@@ -137,6 +158,7 @@
         }
         return true;
       }
+
       $("#endDate").change(function () {
         var startDate = document.getElementById("startDate").value;
         var endDate = document.getElementById("endDate").value;
@@ -145,11 +167,20 @@
           document.getElementById("endDate").value = "";
         }
       });
+      
       $('#projectForm').submit(function (e) {
+        var m = "";
+        $('.membersClass').children().each(function () {
+          m += this.value + ",";
+        });
+        
+        $('#members').val(m.substring(0, m.length-1));
+
         if(!validateMember()){
-          alert("Enter valid email ids' separated by ,")
+          alert("Enter valid email ID")
           e.preventDefault();
         }
+       
        //alert("hello");
       });
       
