@@ -50,6 +50,19 @@ taskController.addTask = async (req, res) => {
 taskController.listTasks = async (req, res) => {
 
 //Need project, sprint and task details while render to front-end
+var sprint = await Sprints.findOne({sprint_id: req.params.id});
+var project = await Project.findOne({ project_id: sprint.project_id });
+var lead = await Users.findOne({ username: project.lead });
+
+//return all the sprints for the selected project
+await Tasks.find({ sprint_id: req.params.id }, function (err, tasks) {
+    if (err) {
+        res.render('sprint', { title: 'Project page', user: req.user, project: project, lead: lead, sprint: sprint, tasks: null });
+    }
+    else {
+        res.render('sprint', { title: 'Project page', user: req.user, project: project, lead: lead, sprint: sprint, tasks: tasks });
+    }
+})
 
 };
 

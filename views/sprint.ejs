@@ -32,7 +32,7 @@
   <script src="javascripts/angularScript.js"></script>
 
   <h1>
-    Creation of Task
+    Sprint Dashboard
   </h1>
   <h2>Welcome
     <%=user.name %>
@@ -51,6 +51,28 @@
       Sign out
     </button>
   </a>
+
+  <div class="container2">
+    
+<% for(var i = 0; i < tasks.length; ++i) {%>
+<% var url = "../task/"+tasks[i].task_id %>
+ 
+    
+  
+  <div>
+      <a href=<%= url %>>
+        <h3>
+      - <%=tasks[i].name%>
+  </h3></a>
+  <h4>
+      - <%=tasks[i].status%>
+  </h4>
+  </div>
+
+  <% } %>
+
+</div>
+
   <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -63,12 +85,33 @@
             <div class="font-effect-shadow-multiple heading">CREATE TASK :)</div>
           </div>
           <hr>
-          <form name="taskForm" class="form-signin" role="form" method="post" action="/sprint" id="taskForm">
+          <% var url1 = "/sprint/"+sprint.sprint_id+"/AddTask" %>
+          <form name="taskForm" class="form-signin" role="form" method="post" action="<%= url1 %>" id="taskForm">
 
 
             <label>Name</label>
             <input type="text" class="form-control" name="name">
             <br />
+
+            <label>Assigned to</label>
+            <select class="form-control" id="dropdown" name="assignee">
+                <option>No one yet</option>
+                <% for(var i = 0; i < project.members.length; ++i) {%>
+                  <option><%= project.members[i] %></option>
+                  <% } %>
+              </select>
+            <!-- <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                No one yet
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#" data-value="none" name="assignee">No one yet</a></li>
+                <% for(var i = 0; i < project.members.length; ++i) {%>
+                <li><a href="#" data-value="<%= project.members[i] %>" name="assignee"><%= project.members[i] %></a></li>
+                <% } %>
+              </ul>
+            </div> -->
 
 
             <label>Description:</label>
@@ -80,7 +123,7 @@
 
                 <div class="col-md-5">
                   <label for="startDate">Start Date:</label>
-                  <input class="form-control" type="date" id="startDate">
+                  <input class="form-control" type="date" id="startDate" name="startDate">
                 </div>
 
                 <div class="col-md-2">
@@ -90,7 +133,7 @@
 
                 <div class="col-md-5">
                   <label for="endDate">End Date:</label>
-                  <input class="form-control" type="date" id="endDate">
+                  <input class="form-control" type="date" id="endDate" name="endDate">
                   <br />
                 </div>
               </div>
@@ -171,6 +214,11 @@
       let end_date = new Date('<%- sprint.end_date %>').toISOString().substr(0, 10);
       document.querySelector("#sprintForm #sprint_startDate").value = start_date;
       document.querySelector("#sprintForm #sprint_endDate").value = end_date;
+
+      $(".dropdown-menu li a").click(function(){
+  $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+  $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+});
 
       $("#endDate").change(function () {
         var startDate = document.getElementById("startDate").value;
