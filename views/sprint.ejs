@@ -99,19 +99,7 @@
                 <% for(var i = 0; i < project.members.length; ++i) {%>
                   <option><%= project.members[i] %></option>
                   <% } %>
-              </select>
-            <!-- <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                No one yet
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#" data-value="none" name="assignee">No one yet</a></li>
-                <% for(var i = 0; i < project.members.length; ++i) {%>
-                <li><a href="#" data-value="<%= project.members[i] %>" name="assignee"><%= project.members[i] %></a></li>
-                <% } %>
-              </ul>
-            </div> -->
+                </select>
 
 
             <label>Description:</label>
@@ -214,11 +202,6 @@
       let end_date = new Date('<%- sprint.end_date %>').toISOString().substr(0, 10);
       document.querySelector("#sprintForm #sprint_startDate").value = start_date;
       document.querySelector("#sprintForm #sprint_endDate").value = end_date;
-
-      $(".dropdown-menu li a").click(function(){
-  $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-  $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-});
 
       $("#endDate").change(function () {
         var startDate = document.getElementById("startDate").value;
