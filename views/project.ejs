@@ -59,33 +59,7 @@
     </button>
   </a>
 
-  <div class="panel-heading">
-    <div class="font-effect-shadow-multiple heading">LIST OF Sprints</div>
-  </div>
-
-  <div class="container2">
-        
-    <% for(var i = 0; i < sprints.length; ++i) {%>
-  <% var url = "../sprint/"+sprints[i].sprint_id %>
-     
-        
-      
-      <div>
-          <a href=<%= url %>>
-            <h3>
-          - <%=sprints[i].name%>
-      </h3></a>
-      <h4>
-          - <%=sprints[i].status%>
-      </h4>
-      </div>
-    
-      <% } %>
-  
-  </div>
-
-  
-  <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
 
@@ -309,6 +283,42 @@
 
     });
   </script>
+
+<style> textarea{
+  background-color:#c2c2a3; height:50px; width: 300px; border: 8px solid rgb(21, 4, 61); padding: 15px; margin-left:20px; font-family:Georgia,serif; font-size:20px; text-align:center;
+  margin-top:20px;
+  
+}
+  </style>
+<div class="panel-heading">
+    <div class="font-effect-shadow-multiple heading">LIST OF SPRINTS:)</div>
+  </div>
+<div class="container2">
+    
+<% for(var i = 0; i < sprints.length; ++i) {%>
+
+   
+  <% var url = "../sprint/"+sprints[i].sprint_id %>
+     
+        
+      
+      <div class="fancy">
+          <a href=<%= url %>>
+            <h3>
+          - <%=sprints[i].name%>
+      </h3></a>
+      <h4>
+          - <%=sprints[i].status%>
+      </h4>
+      </div>  
+    
+  
+    <% } %>
+    
+    </div>
+
+
+
 </body>
 
 </html>
