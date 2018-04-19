@@ -20,11 +20,11 @@ var TaskSchema = new Schema({
     start_date: Date,
     end_date: Date,
     isAssigned: Boolean,
-    task_history: {
+    task_history:[{
         dropped_by: String,     //username of user who dropped task
         timestamp: Date,
         reason: String
-    },
+    }],
     comments: [{
         name: String,           //Name of user0
         content: String,

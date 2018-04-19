@@ -7,7 +7,7 @@ var JSAlert = require("js-alert");
 var sprintController = {};
 
 
-// Insert a Project into Database
+// Insert a Member to a project
 sprintController.addMember = async (req, res) => {
     var user = await Users.findOne({ username: req.body.member });
     //checking to see if the new member is already part of the selected project
@@ -42,7 +42,7 @@ sprintController.addMember = async (req, res) => {
         console.error("This Member already exists for the Project");
     }
 };
-
+// Insert a Sprint to a project
 sprintController.addSprint = async (req, res) => {
 
     var sprint = new Sprints({
@@ -68,7 +68,7 @@ sprintController.addSprint = async (req, res) => {
 
 };
 
-
+// List Sprints of a project
 sprintController.listSprints = async (req, res) => {
     var project = await Project.findOne({ project_id: req.params.id });
     var lead = await Users.findOne({ username: project.lead });
@@ -86,7 +86,7 @@ sprintController.listSprints = async (req, res) => {
 
 };
 
-
+// Update a project
 sprintController.updateProject = async (req, res) => {
     var membersList = req.body.member.split(",");
     let validmemberList = new Set();
@@ -139,6 +139,19 @@ sprintController.updateProject = async (req, res) => {
 
     });
 
+};
+
+
+sprintController.addProjectComment = async (req, res) => {
+    /*
+    create a new comment and push it to the project object
+    for reference
+    var update = { $push: { comments: new comment object that you created } };
+   var  conditions = { project_id: new mongoose.Types.ObjectId(req.params.id) };
+                        Project.findOneAndUpdate(conditions, update, function (err, resp) {
+                            if (err) return console.error(err);
+                        });
+    */
 };
 
 module.exports = sprintController;

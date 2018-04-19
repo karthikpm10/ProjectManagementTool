@@ -22,6 +22,7 @@ router.get('/:id', async (req, res, next) => {
 router.post('/:id/AddMember', sprintcontroller.addMember);
 router.post('/:id/AddSprint', sprintcontroller.addSprint);
 router.post('/:id/UpdateProject', sprintcontroller.updateProject);
+router.post('/:id/AddProjectComment', sprintcontroller.addProjectComment);
 
 
 module.exports = router;
