@@ -93,7 +93,7 @@ sprintController.updateProject = async (req, res) => {
    //checking if the user entered as a member is a valid user, and if he is not already listed as part of the project
     for (var i = 0; i < membersList.length; i++) {
         var user = await Users.findOne({ username: membersList[i] });
-        var inValidMember = user != null ? user.project_id.some(ids => ids.equals(new mongoose.Types.ObjectId(req.params.id))) : true;
+        var inValidMember = (user != null) ? user.project_id.some(ids => ids.equals(new mongoose.Types.ObjectId(req.params.id))) : true;
         if (!inValidMember) {
             validmemberList.add(membersList[i]);
         }
