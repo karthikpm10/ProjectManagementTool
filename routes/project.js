@@ -12,15 +12,16 @@ router.get('/', function(req, res, next) {
 
 });*/
 
-router.get('/:id', async(req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   //list sprints
   console.log(req.params.id);
-  await sprintcontroller.listSprints(req , res);  
+  await sprintcontroller.listSprints(req, res);
 });
 
 //uncomment below
 router.post('/:id/AddMember', sprintcontroller.addMember);
 router.post('/:id/AddSprint', sprintcontroller.addSprint);
+router.post('/:id/UpdateProject', sprintcontroller.updateProject);
 
 
 module.exports = router;
