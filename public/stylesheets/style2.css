@@ -225,15 +225,14 @@ img::-moz-selection {
 header.masthead {
   text-align: center;
   color: white;
-  height: 700px;
   background-image: url("../img/download.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  -webkit-background-size: auto;
+  -moz-background-size: auto;
+  -o-background-size: auto;
+  background-size: auto;
 }
 
 header.masthead .intro-text {
