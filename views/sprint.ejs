@@ -17,6 +17,8 @@
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel='stylesheet' href='/stylesheets/comments.css' />
 
+  
+
 </head>
 
 <body>
@@ -33,12 +35,8 @@
   <!-- My Angular script -->
   <!-- <script src="javascripts/angularScript.js"></script> -->
 
-  <h1>
-    Sprint Dashboard
-  </h1>
-  <h2>Welcome
-    <%=user.name %>
-  </h2>
+  <% include header-template.ejs %>
+
   <!-- <p>Welcome to <%= title %></p> -->
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#taskModal">
     Create Task
@@ -53,37 +51,55 @@
   <button type="button" class="btn btn-primary">
       <span class="glyphicon glyphicon-chevron-left"></span> Project Dashboard </button> </a>
 
-      <a href="../profile">
-        <button type="button" class="btn btn-primary">
-          Profile
-        </button>
-      </a>
-  <a href="../logout">
-    <button type="button" class="btn btn-primary">
-      Sign out
-    </button>
-  </a>
+      <div class="container col-md-12">
+          <div class="row">
+
+            <div class="col-md-8">
+              yolo
+            </div>
+
+            <div class="col-md-1">
+                
+            </div>
+
+            <div class="col-md-4">
+              yolo2
+            </div>
+          </div>
+        </div>
 
   <div class="container2">
     
 <% for(var i = 0; i < tasks.length; ++i) {%>
 <% var url = "../task/"+tasks[i].task_id %>
- 
-    
-  
-  <div>
-      <a href=<%= url %>>
-        <h3>
-      - <%=tasks[i].name%>
-  </h3></a>
-  <h4>
-      - <%=tasks[i].status%>
-  </h4>
-  </div>
+
+  <a href=<%= url %>>
+    <div class="fancy"><h3><%=tasks[i].name%></h3>
+    <h4>Status: <%=tasks[i].status%></h4></div>
+  </a>
 
   <% } %>
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Create Task MODAL -->
 
   <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -150,6 +166,7 @@
     </div>
   </div>
 
+  <!-- Update Sprint Modal -->
   <div class="modal fade" id="sprintModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -217,7 +234,7 @@
   </div>
 
       <!--Html code for comments-->
-      <div class="detailBox">
+      <!-- <div class="detailBox">
         <div class="titleBox">
           <label>Comments</label>
           <button type="button" class="close" aria-hidden="true">&times;</button>
@@ -258,7 +275,7 @@
               </div>
             </form>
           </div>
-        </div>
+        </div> -->
         <!-- Html code for comments end here-->
         
 
