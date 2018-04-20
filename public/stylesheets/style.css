@@ -196,6 +196,11 @@ hr{
 }
 
 .menuButtons{
-  padding: 20px;
+  padding: 80px;
   margin-top: 40px;
+}
+
+.editTaskClass{
+  padding:0px 100px;
+  /* background-color:black; */
 }

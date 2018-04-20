@@ -3,60 +3,201 @@
 
 <head>
   <title>Project Management</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <!-- Google Fonts API -->
-  <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple|3d-float">
-
-  <!-- Custom stylesheets -->
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-  <link rel='stylesheet' href='/stylesheets/comments.css' />
 </head>
 
 <body>
-  <!-- Angular Material requires Angular.js Libraries -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
 
-  <!-- Angular Material Library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  <% var title='Task dashboard' %>
+  <% var name= task.name %>
+  <% var description = task.description %>
 
-  <!-- My Angular script -->
-  <!-- <script src="javascripts/angularScript.js"></script> -->
-
-  <h1>
-    Task Dashboard
-  </h1>
+  <% include header-template.ejs %>
 
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#taskModal">
     Update Task
   </button>
 
-  <% var backURL = "../sprint/"+sprint.sprint_id %>
-  <a href="<%= backURL %>">
-  <button type="button" class="btn btn-primary">
-      <span class="glyphicon glyphicon-chevron-left"></span> Sprint Dashboard </button> </a>
+  
 
-  <a href="../profile">
-    <button type="button" class="btn btn-primary">
-      Profile
-    </button>
-  </a>
+  <div class="container col-md-12">
+    <div class="row">
 
-  <a href="../logout">
-    <button type="button" class="btn btn-primary">
-      Sign out
-    </button>
-  </a>
+      <div class="col-md-6">
+        <div class="container">
 
+          <div class="row">
+            <div = class="col-md-2">
+                <% var backURL = "../sprint/"+sprint.sprint_id %>
+                <a href="<%= backURL %>">
+                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"></span> Sprint Dashboard </button> 
+                </a>
+            </div>
+            <div = class="col-md-8">
+                <%= task.start_date %>
+                <%= task.end_date %>
+                <%= task.assignee %>
+            </div>
+            <div = class="col-md-2"></div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-12">
+              <!--Html code for comments-->
+                          <div class="detailBox">
+                            <div class="titleBox">
+                              <label>Comments thread</label>
+                              
+                            </div>
+                            <div class="commentBox">
+                          
+                              
+                              <div class="actionBox">
+                                <ul class="commentList">
+        
+                                    <% for(var i = 0; i < task.comments.length; i++) {%>
+                                  <li>
+                                    <div class="commenterImage">
+                                      <img src="/img/nopic.png" />
+                                    </div>
+                                    <div class="commentText">
+                                      <p class=""><%= task.comments[i].content %></p>
+                                      <span class="date sub-text"><%= task.comments[i].userName %> </span>
+                          
+                                    </div>
+                                  </li>
+                                    <% } %>
+                          
+                                  
+                                </ul>
+                                <% var urlcomment = "/task/"+task.task_id+"/AddSprintComment" %>
+                                
+                                <form class="form-inline" role="form" method="POST" action="<%= urlcomment %>">
+                                  <div class="form-group">
+                                    <input class="form-control" type="text" placeholder="Your comments" name="content" />
+                                  </div>
+                                  <div class="form-group">
+                                    <button type="submit" class="btn btn-default">Add</button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                </div>
+            </div>
+
+        </div>
+          
+      </div>
+
+      <div class="col-md-1">
+        
+      </div>
+
+      <div class="col-md-4" style="padding:0px 55px;background-color:;">
+        <h3 > <u> <b> Update the task </b> </u></h3>
+          <% var url1 = "/task/"+task.task_id+"/EditTask" %>
+          <form name="taskForm" class="form-signin" role="form" method="post" action="<%= url1 %>" id="taskForm" >
+
+            <div class="form-group">
+                <label for="name" class="col-sm-3 control-label">Name </label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" name="name" id="name" value="<%= task.name %>" required>
+                  </div>
+            </div>
+            <br/>
+
+            <!-- <label>Assigned to</label>
+            <select class="form-control" id="dropdown_assignee" name="assignee">
+                <option>No one yet</option>
+                <% for(var i = 0; i < project.members.length; ++i) {%>
+                  <option value='<%= project.members[i] %>'><%= project.members[i] %></option>
+                  <% } %>
+                </select> -->
+
+            <br/>
+
+            <div class="form-group">
+                <label for="dropdown_status" class="col-sm-3 control-label"> Task status </label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="status" id="dropdown_status">
+                        <option value='To-do'>To-do</option>
+                        <option value='In-progress'>In-progress </option>
+                        <option value='Completed'>Completed</option>
+                    </select>
+                  </div>
+            </div>
+
+            <br/>
+            <br/>
+
+            <div class="form-group">
+                <label for="dropdown_assignee" class="col-sm-3 control-label"> Assigned to </label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="assignee" id="dropdown_assignee">
+                        <option value='No one'>No one yet</option>
+                        <% for(var i = 0; i < project.members.length; ++i) { %>
+                          <option value='<%= project.members[i] %>'><%= project.members[i] %></option>
+                        <% } %>
+                        
+                    </select>
+                  </div>
+            </div>
+
+            <br/>
+            <br/>
+
+
+            <label>Description:</label>
+            <textarea class="form-control" rows="4" name="description" required><%= task.description %></textarea>
+            <br />
+
+            <div class="container col-md-12">
+              <div class="row">
+
+                <div class="col-md-5">
+                  <label for="startDate">Start Date:</label>
+                  <input class="form-control" type="date" id="startDate" name="startDate" required>
+                </div>
+
+                <div class="col-md-2">
+
+                </div>
+
+
+                <div class="col-md-5">
+                  <label for="endDate">End Date:</label>
+                  <input class="form-control" type="date" id="endDate" name="endDate" required>
+                  <br />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="submitButton">
+              <button type="submit" class="btn btn-primary">Update Task</button>
+            </div>
+          </form>
+         
+
+      </div>
+      <div class="col-md-1">
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+  
+
+
+<!-- 
+
+
+  
   <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -66,7 +207,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <div class="panel-heading">
-            <div class="font-effect-shadow-multiple heading">CREATE TASK :)</div>
+            <div class="font-effect-shadow-multiple heading">Update Task</div>
           </div>
           <hr>
           <% var url1 = "/task/"+task.task_id+"/EditTask" %>
@@ -131,53 +272,9 @@
 
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <!--Html code for comments-->
-  <div class="detailBox">
-    <div class="titleBox">
-      <label>Comments</label>
-      <button type="button" class="close" aria-hidden="true">&times;</button>
-    </div>
-    <div class="commentBox">
   
-      <p class="taskDescription">Comments on the current project.</p>
-      <div class="actionBox">
-        <ul class="commentList">
-  
-          <li>
-            <div class="commenterImage">
-              <img src="http://placekitten.com/50/50" />
-            </div>
-            <div class="commentText">
-              <p class="">Hello this is a test comment.</p>
-              <span class="date sub-text">on March 5th, 2014</span>
-  
-            </div>
-          </li>
-  
-          <li>
-            <div class="commenterImage">
-              <img src="http://placekitten.com/40/40" />
-            </div>
-            <div class="commentText">
-              <p class="">Hello this is a test comment.</p>
-              <span class="date sub-text">on March 5th, 2014</span>
-  
-            </div>
-          </li>
-        </ul>
-        <form class="form-inline" role="form">
-          <div class="form-group">
-            <input class="form-control" type="text" placeholder="Your comments" />
-          </div>
-          <div class="form-group">
-            <button class="btn btn-default">Add</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <!-- Html code for comments end here-->
 
   <script>
     $(document).ready(function () {
