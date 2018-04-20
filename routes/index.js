@@ -19,6 +19,12 @@ router.get('/', function(req, res, next) {
   res.render('index', { status: JSON.stringify(status), user: req.user});
 });
 
+router.get('/header', function(req, res, next) {
+    
+    res.render('header-template', { });
+  });
+  
+
 router.post('/login', auth.login);
 
 router.post('/register', auth.register);

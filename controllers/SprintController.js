@@ -151,9 +151,9 @@ sprintController.updateProject = async (req, res) => {
 sprintController.addProjectComment = async (req, res) => {
     var comment = {
         comment_id: new mongoose.Types.ObjectId(),
-        userName: req.body.name,
+        userName: req.user.name,
         content: req.body.content,
-        timestamp: req.body.timestamp
+        timestamp: Date.now()
     };
     
     var update = { $push: { comments: comment } };

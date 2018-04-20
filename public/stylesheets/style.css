@@ -1,8 +1,4 @@
 
-body {
-  padding: 50px;
-  /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;  */
-} 
 
 
 a {
@@ -41,6 +37,7 @@ hr{
   font-family: 'Gugi', cursive;
   font-size: 72px;
   text-align: center;
+  margin-top: 25px;
 }
 
 .form-signin{
@@ -60,6 +57,7 @@ hr{
   margin-top:7px;
   margin-bottom: 5px;
 }
+/*
 .fancy {
   position: relative;
   background-color: #C7D9AF;
@@ -83,7 +81,7 @@ hr{
   box-shadow: 0px 13px 10px black;
   transform: rotate(4deg);
 }
-
+*/
 
 .fancy2 {
   position: relative;
@@ -109,12 +107,9 @@ hr{
   transform: rotate(4deg);
 }
 
-.container2 {
-  display: flex;
-
-}
+/*
 .container2 >div {
-  flex: 1; /*grow*/
+  flex: 1; 
   margin-left:20px;
   margin-top:20px; 
   background-color:#C2C2A3;
@@ -126,7 +121,7 @@ hr{
   font-size:20px;
   line-height:2;
   flex-grow: 4;
-}
+}*/
 .container3 {
   display: flex;
   flex-direction: column;
@@ -144,4 +139,63 @@ hr{
   font-size:20px;
   line-height:2;
  
+}
+
+.fancy {
+  position: relative;
+  background-color: #C7D9AF;
+  padding: 2rem;
+  text-align: center;
+  width: 250px;
+  height: 200px;
+  margin: 5px;
+}
+
+.fancy::before {
+  content: "";
+
+  position : absolute;
+  z-index  : -1;
+  bottom   : 15px;
+  right    : 5px;
+  width    : 50%;
+  top      : 80%;
+  max-width: 200px;
+
+  box-shadow: 0px 13px 10px black;
+  transform: rotate(4deg);
+}
+
+.container2 {
+  /* display: flex; */
+  margin:30px;
+}
+
+.container2 > a > div {
+  /* flex: 1; grow */
+  margin-left:20px;
+  margin-top:20px;
+}
+
+.box h3{
+  text-align:center;
+	position:relative;
+  font-weight: bold;
+}
+.box {
+	width:300px;
+	height:250px;
+	background:#C7D9AF;
+	margin:40px auto;
+}
+
+.effect1{
+	-webkit-box-shadow: 0 10px 6px -6px #777;
+	   -moz-box-shadow: 0 10px 6px -6px #777;
+	        box-shadow: 0 10px 6px -6px #777;
+}
+
+.menuButtons{
+  padding: 20px;
+  margin-top: 40px;
 }
