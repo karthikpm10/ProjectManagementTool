@@ -106,10 +106,6 @@ hr{
   transform: rotate(4deg);
 }
 
-.container2 {
-  display: flex;
-
-}
 /*
 .container2 >div {
   flex: 1; 
@@ -151,6 +147,7 @@ hr{
   text-align: center;
   width: 250px;
   height: 200px;
+  margin: 5px;
 }
 
 .fancy::before {
@@ -169,10 +166,31 @@ hr{
 }
 
 .container2 {
-  display: flex;
+  /* display: flex; */
+  margin:30px;
 }
+
 .container2 > a > div {
-  flex: 1; /*grow*/
+  /* flex: 1; grow */
   margin-left:20px;
   margin-top:20px;
+}
+
+.box h3{
+  text-align:center;
+	position:relative;
+  top:80px;
+  font-weight: bold;
+}
+.box {
+	width:300px;
+	height:250px;
+	background:#C7D9AF;
+	margin:40px auto;
+}
+
+.effect1{
+	-webkit-box-shadow: 0 10px 6px -6px #777;
+	   -moz-box-shadow: 0 10px 6px -6px #777;
+	        box-shadow: 0 10px 6px -6px #777;
 }
