@@ -147,6 +147,7 @@ sprintController.updateProject = async (req, res) => {
 };
 
 
+
 sprintController.addProjectComment = async (req, res) => {
     var comment = new Comments({
         comment_id: new mongoose.Types.ObjectId(),
@@ -155,7 +156,14 @@ sprintController.addProjectComment = async (req, res) => {
         timestamp: req.body.timestamp
     });
     
-    
+    var update = { $push: { comments: comment } };
+    var conditions = { project_id: new mongoose.Types.ObjectId(req.params.id) };
+    Project.findOneAndUpdate(conditions, update, function (err, resp) {
+        if (err) return console.error(err);
+        else {
+            res.redirect('/project/' + req.params.id);
+        }
+    });
     /*
     create a new comment and push it to the project object
     for reference
@@ -165,6 +173,23 @@ sprintController.addProjectComment = async (req, res) => {
                             if (err) return console.error(err);
                         });
     */
+};
+
+sprintController.listComments = async (req, res) => {
+    var project = await Project.findOne({ project_id: req.params.id });
+    var lead = await Users.findOne({ username: project.lead });
+    //return all the sprints for the selected project
+    await Project.find({ project_id: req.params.id }, function (err, project) {
+        if (err) {
+            res.render('project', { title: 'Project page', user: req.user, project: project, lead: lead, comments: null });
+        }
+        else {
+            res.render('project', { title: 'Project page', user: req.user, project: project, lead: lead, comments: project.comments });
+        }
+    })
+
+
+
 };
 
 module.exports = sprintController;
