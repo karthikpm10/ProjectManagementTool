@@ -29,7 +29,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 
   <!-- My Angular script -->
-  <script src="javascripts/angularScript.js"></script>
+  <!-- <script src="javascripts/angularScript.js"></script> -->
 
   <h1>
     Sprint Dashboard
@@ -100,7 +100,7 @@
 
 
             <label>Name</label>
-            <input type="text" class="form-control" name="name">
+            <input type="text" class="form-control" name="name" required>
             <br />
 
             <label>Assigned to</label>
@@ -112,8 +112,8 @@
                 </select>
 
 
-            <label>Description:</label>
-            <textarea class="form-control" rows="5" name="description"></textarea>
+            <label>Task description</label>
+            <textarea class="form-control" rows="4" name="description" required></textarea>
             <br />
 
             <div class="container col-md-12">
@@ -121,7 +121,7 @@
 
                 <div class="col-md-5">
                   <label for="startDate">Start Date:</label>
-                  <input class="form-control" type="date" id="startDate" name="startDate">
+                  <input class="form-control" type="date" id="startDate" name="startDate" required>
                 </div>
 
                 <div class="col-md-2">
@@ -131,7 +131,7 @@
 
                 <div class="col-md-5">
                   <label for="endDate">End Date:</label>
-                  <input class="form-control" type="date" id="endDate" name="endDate">
+                  <input class="form-control" type="date" id="endDate" name="endDate" required>
                   <br />
                 </div>
               </div>
