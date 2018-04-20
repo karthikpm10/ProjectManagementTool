@@ -233,6 +233,7 @@ header.masthead {
   -moz-background-size: auto;
   -o-background-size: auto;
   background-size: auto;
+  height: 100%; 
 }
 
 header.masthead .intro-text {

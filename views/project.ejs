@@ -302,6 +302,7 @@
         }
        //alert("hello");
       });
+      
 
     });
   </script>
@@ -312,18 +313,21 @@
   
 }
   </style>
-<div class="panel-heading">
+<div class="panel-heading" >
     <div class="font-effect-shadow-multiple heading">LIST OF SPRINTS:)</div>
-  </div>
-<div class="container2">
     
+  </div>
+  <% var sprintStatus = new Array() %>  
+<div class="container2">
+     
 <% for(var i = 0; i < sprints.length; ++i) {%>
 
    
   <% var url = "../sprint/"+sprints[i].sprint_id %>
-     
-        
-      
+  <% sprintStatus[i] =sprints[i].status%>
+  
+
+  
       <div class="fancy">
           <a href=<%= url %>>
             <h3>
@@ -331,6 +335,7 @@
       </h3></a>
       <h4>
           - <%=sprints[i].status%>
+          
       </h4>
       </div>  
     
@@ -338,7 +343,33 @@
     <% } %>
     
     </div>
-
+    <div class="container3">
+     
+        <% for(var i = 0; i < sprints.length; ++i) {%>
+        
+           
+          <% var url = "../sprint/"+sprints[i].sprint_id %>
+          <% sprintStatus[i] =sprints[i].status%>
+          
+        
+          
+              <div class="status">
+                  <a href=<%= url %>>
+                    <h3>
+                  - <%=sprints[i].name%>
+              </h3></a>
+              <h4>
+                  - <%=sprints[i].status%>
+                  
+              </h4>
+              </div>  
+            
+          
+            <% } %>
+            
+            </div>
+  
+  </div>
 
 
 </body>
