@@ -194,3 +194,8 @@ hr{
 	   -moz-box-shadow: 0 10px 6px -6px #777;
 	        box-shadow: 0 10px 6px -6px #777;
 }
+
+.menuButtons{
+  padding: 20px;
+  margin-top: 40px;
+}

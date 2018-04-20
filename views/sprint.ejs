@@ -38,7 +38,7 @@
   <% var title='Sprint dashboard' %>
   <% var name= sprint.name %>
   <% var description=sprint.description %>
-  
+
   <% include header-template.ejs %>
       <div class="container col-md-12">
           <div class="row">
@@ -72,18 +72,73 @@
             </div>
 
             <div class="col-md-4">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#taskModal">
-                    Create Task
-                  </button>
+
+                <div class="container col-md-12">
+                    <div class="row">
+                      <div class="col-md-11">
                 
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sprintModal">
-                    Update Sprint information
-                  </button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block menuButtons" data-toggle="modal" data-target="#taskModal">Create Task</button>
                 
-                  <% var backURL = "../project/"+project.project_id %>
-                  <a href="<%= backURL %>">
-                  <button type="button" class="btn btn-primary">
-                      <span class="glyphicon glyphicon-chevron-left"></span> Project Dashboard </button> </a>
+                        <button type="button" class="btn btn-primary btn-lg btn-block menuButtons" data-toggle="modal" data-target="#sprintModal">Update Sprint information</button>
+                
+                        <% var backURL = "../project/"+project.project_id %>
+                        <a href="<%= backURL %>">
+                        <button type="button" class="btn btn-primary btn-lg btn-block menuButtons"><span class="glyphicon glyphicon-chevron-left"></span> Project Dashboard </button> 
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                      <!--Html code for comments-->
+                                  <div class="detailBox">
+                                    <div class="titleBox">
+                                      <label>Comments</label>
+                                      <button type="button" class="close" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="commentBox">
+                                  
+                                      <p class="taskDescription">Comments on the current sprint.</p>
+                                      <div class="actionBox">
+                                        <ul class="commentList">
+                                          <li>
+                                            <div class="commenterImage">
+                                              <img src="http://placekitten.com/50/50" />
+                                            </div>
+                                            <div class="commentText">
+                                              <p class="">Hello this is a test comment.</p>
+                                              <span class="date sub-text">on March 5th, 2014</span>
+                                  
+                                            </div>
+                                          </li>
+                                  
+                                          <li>
+                                            <div class="commenterImage">
+                                              <img src="http://placekitten.com/40/40" />
+                                            </div>
+                                            <div class="commentText">
+                                              <p class="">Hello this is a test comment.</p>
+                                              <span class="date sub-text">on March 5th, 2014</span>
+                                  
+                                            </div>
+                                          </li>
+                                        </ul>
+                                        <% var urlcomment = "/sprint/"+sprint.sprint_id+"/AddSprintComment" %>
+                                        
+                                        <form class="form-inline" role="form" method="POST" action="<%= urlcomment %>">
+                                          <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Your comments" name="content" />
+                                          </div>
+                                          <div class="form-group">
+                                            <button type="submit" class="btn btn-default">Add</button>
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
           </div>
         </div>
@@ -118,7 +173,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <div class="panel-heading">
-            <div class="font-effect-shadow-multiple heading">CREATE TASK :)</div>
+            <div class="font-effect-shadow-multiple heading">Create Task</div>
           </div>
           <hr>
           <% var url1 = "/sprint/"+sprint.sprint_id+"/AddTask" %>
@@ -184,7 +239,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <div class="panel-heading">
-            <div class="font-effect-shadow-multiple heading">Update Sprint :)</div>
+            <div class="font-effect-shadow-multiple heading">Update Sprint</div>
           </div>
           <hr>
           <% var url2 = "/sprint/"+sprint.sprint_id+"/UpdateSprint" %>
