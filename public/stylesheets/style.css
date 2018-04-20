@@ -37,6 +37,7 @@ hr{
   font-family: 'Gugi', cursive;
   font-size: 72px;
   text-align: center;
+  margin-top: 25px;
 }
 
 .form-signin{
@@ -179,7 +180,6 @@ hr{
 .box h3{
   text-align:center;
 	position:relative;
-  top:80px;
   font-weight: bold;
 }
 .box {
