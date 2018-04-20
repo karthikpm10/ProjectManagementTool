@@ -117,21 +117,5 @@ taskController.addSprintComment = async (req, res) => {
     });
 };
 
-//Listing comments in sprint dashboard
-taskController.listComments = async (req, res) => {
-    var sprint = await Sprints.findOne({ sprint_id: req.params.id });
-    //return all the sprints for the selected project
-    await Sprints.find({ sprint_id: req.params.id }, function (err, sprint) {
-        if (err) {
-            res.render('sprint', { title: 'Sprint page', user: req.user, sprint: sprint, comments: null });
-        }
-        else {
-            res.render('sprint', { title: 'Sprint page', user: req.user, sprint: sprint, comments: sprint.comments });
-        }
-    })
-
-
-
-};
 
 module.exports = taskController;
