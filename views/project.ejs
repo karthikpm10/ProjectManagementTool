@@ -19,6 +19,7 @@
   <!-- Custom stylesheets -->
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel='stylesheet' href='/stylesheets/style2.css' />
+  <link rel='stylesheet' href='/stylesheets/comments.css' />
 </head>
 
 <body href="#page-top">
@@ -75,6 +76,11 @@
     Update Project <br>information
   </button>
 
+  <a href="../profile">
+    <button type="button" class="btn btn-primary">
+      Profile
+    </button>
+  </a>
   <a href="../logout">
     <button type="button" class="btn btn-primary">
       Sign out
@@ -98,7 +104,7 @@
 
 
               <label>New Member</label>
-              <input type="text" class="form-control" name="member" id="member">
+              <input type="text" class="form-control" name="member" id="member" required>
               <br />
 
               <div class="submitButton">
@@ -131,8 +137,8 @@
               <br />
 
 
-              <label>Description:</label>
-              <textarea class="form-control" rows="5" name="description" required></textarea>
+              <label>Sprint description</label>
+              <textarea class="form-control" rows="3" name="description" required></textarea>
               <br />
 
               <div class="container col-md-12">
@@ -235,6 +241,8 @@
       </div>
     </div>
   </div>
+
+  
   <script>
     $(document).ready(function () {
 
@@ -339,8 +347,51 @@
     
     </div>
 
+    <!--Html code for comments-->
+<div class="detailBox">
+  <div class="titleBox">
+    <label>Comments</label>
+    <button type="button" class="close" aria-hidden="true">&times;</button>
+  </div>
+  <div class="commentBox">
 
+<p class="taskDescription">Comments on the current project.</p>
+    <div class="actionBox">
+      <ul class="commentList">
+        
+        <li>
+          <div class="commenterImage">
+            <img src="http://placekitten.com/50/50" />
+          </div>
+          <div class="commentText">
+            <p class="">Hello this is a test comment.</p>
+            <span class="date sub-text">on March 5th, 2014</span>
 
+          </div>
+        </li>
+
+        <li>
+          <div class="commenterImage">
+            <img src="http://placekitten.com/40/40" />
+          </div>
+          <div class="commentText">
+            <p class="">Hello this is a test comment.</p>
+            <span class="date sub-text">on March 5th, 2014</span>
+
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline" role="form">
+        <div class="form-group">
+          <input class="form-control" type="text" placeholder="Your comments" />
+        </div>
+        <div class="form-group">
+          <button class="btn btn-default">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+<!-- Html code for comments end here-->
 </body>
 
 </html>

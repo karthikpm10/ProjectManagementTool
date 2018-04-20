@@ -147,24 +147,26 @@ sprintController.updateProject = async (req, res) => {
 };
 
 
+//Adding comments in project dashboard
 sprintController.addProjectComment = async (req, res) => {
-    var comment = new Comments({
+    var comment = {
         comment_id: new mongoose.Types.ObjectId(),
         userName: req.body.name,
         content: req.body.content,
         timestamp: req.body.timestamp
+    };
+    
+    var update = { $push: { comments: comment } };
+    var conditions = { project_id: new mongoose.Types.ObjectId(req.params.id) };
+    Project.findOneAndUpdate(conditions, update, function (err, resp) {
+        if (err) return console.error(err);
+        else {
+            res.redirect('/project/' + req.params.id);
+        }
     });
     
-    
-    /*
-    create a new comment and push it to the project object
-    for reference
-    var update = { $push: { comments: new comment object that you created } };
-   var  conditions = { project_id: new mongoose.Types.ObjectId(req.params.id) };
-                        Project.findOneAndUpdate(conditions, update, function (err, resp) {
-                            if (err) return console.error(err);
-                        });
-    */
 };
+
+
 
 module.exports = sprintController;
