@@ -100,6 +100,37 @@ taskController.updateSprint = async (req, res) => {
 };
 
 taskController.addSprintComment = async (req, res) => {
+    var comment = new Comments({
+        comment_id: new mongoose.Types.ObjectId(),
+        userName: req.body.name,
+        content: req.body.content,
+        timestamp: req.body.timestamp
+    });
+
+    var update = { $push: { comments: comment } };
+    var conditions = { sprint_id: new mongoose.Types.ObjectId(req.params.id) };
+    Sprints.findOneAndUpdate(conditions, update, function (err, resp) {
+        if (err) return console.error(err);
+        else {
+            res.redirect('/sprint/' + req.params.id);
+        }
+    });
+};
+
+//Listing comments in sprint dashboard
+taskController.listComments = async (req, res) => {
+    var sprint = await Sprints.findOne({ sprint_id: req.params.id });
+    //return all the sprints for the selected project
+    await Sprints.find({ sprint_id: req.params.id }, function (err, sprint) {
+        if (err) {
+            res.render('sprint', { title: 'Sprint page', user: req.user, sprint: sprint, comments: null });
+        }
+        else {
+            res.render('sprint', { title: 'Sprint page', user: req.user, sprint: sprint, comments: sprint.comments });
+        }
+    })
+
+
 
 };
 

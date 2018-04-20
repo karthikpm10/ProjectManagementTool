@@ -147,7 +147,7 @@ sprintController.updateProject = async (req, res) => {
 };
 
 
-
+//Adding comments in project dashboard
 sprintController.addProjectComment = async (req, res) => {
     var comment = new Comments({
         comment_id: new mongoose.Types.ObjectId(),
@@ -175,6 +175,7 @@ sprintController.addProjectComment = async (req, res) => {
     */
 };
 
+//Listing comments in project dashboard
 sprintController.listComments = async (req, res) => {
     var project = await Project.findOne({ project_id: req.params.id });
     var lead = await Users.findOne({ username: project.lead });
