@@ -9,12 +9,12 @@ var taskDetailsController = {};
 
 //adding comments on task dashboard
 taskDetailsController.addTaskComment = async (req, res) => {
-    var comment = new Comments({
+    var comment = {
         comment_id: new mongoose.Types.ObjectId(),
         userName: req.body.name,
         content: req.body.content,
         timestamp: req.body.timestamp
-    });
+    };
 
     var update = { $push: { comments: comment } };
     var conditions = { task_id: new mongoose.Types.ObjectId(req.params.id) };
