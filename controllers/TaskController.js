@@ -118,5 +118,59 @@ taskController.addSprintComment = async (req, res) => {
     });
 };
 
+taskController.getTaskStats = async (req,res) =>
+{
+    var statsJson = {};
+    await Tasks.find({ sprint_id: req.params.id,status: 'Completed' }, function (err, tasks) {
+        if (err) {
+            console.log("empoty");
+        }
+        else {
+            statsJson['CompletedTasks']=tasks.length;
+        }
+    });
+    await Tasks.find({ sprint_id: req.params.id,status: 'In-progress' }, function (err, tasks) {
+        if (err) {
+        }
+        else {
+            statsJson['OngoingTasks']=tasks.length;
+        }
+    });
+    await Tasks.find({ sprint_id: req.params.id,status: 'To-do' }, function (err, tasks) {
+        if (err) {
+        }
+        else {
+            statsJson['PendingTasks']=tasks.length;
+        }
+    });
+    await Tasks.find({ sprint_id: req.params.id,isAssigned: false }, function (err, tasks) {
+        if (err) {
+        }
+        else {
+            statsJson['UnassignedTasks']=tasks.length;
+        }
+    });
+    await Tasks.find({ sprint_id: req.params.id,isAssigned: true }, function (err, tasks) {
+        if (err) {
+        }
+        else {
+            statsJson['AssignedTasks']=tasks.length;
+        }
+    });
+    await Tasks.find({ sprint_id: req.params.id}, function (err, tasks) {
+        if (err) {
+            
+        }
+        else {
+            statsJson['TotalTasks']=tasks.length;
+            
+            
+        }
+    });
+
+    res.send(statsJson);
+
+};
+
 
 module.exports = taskController;
