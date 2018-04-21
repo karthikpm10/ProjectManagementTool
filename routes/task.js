@@ -62,6 +62,7 @@ router.post('/:id/EditTask', async (req, res, next) => {
 
 });
 
+router.post('/:id/AddTaskComment', taskdetails.addTaskComment);
 
-//router.post('/:id/AddTaskComment', // add whichever controller you are using);
+
 module.exports = router;

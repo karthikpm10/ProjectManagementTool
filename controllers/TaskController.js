@@ -49,20 +49,20 @@ taskController.addTask = async (req, res) => {
 // list tasks of a sprint
 taskController.listTasks = async (req, res) => {
 
-//Need project, sprint and task details while render to front-end
-var sprint = await Sprints.findOne({sprint_id: req.params.id});
-var project = await Project.findOne({ project_id: sprint.project_id });
-var lead = await Users.findOne({ username: project.lead });
+    //Need project, sprint and task details while render to front-end
+    var sprint = await Sprints.findOne({ sprint_id: req.params.id });
+    var project = await Project.findOne({ project_id: sprint.project_id });
+    var lead = await Users.findOne({ username: project.lead });
 
-//return all the sprints for the selected project
-await Tasks.find({ sprint_id: req.params.id }, function (err, tasks) {
-    if (err) {
-        res.render('sprint', { title: 'Project page', user: req.user, project: project, lead: lead, sprint: sprint, tasks: null });
-    }
-    else {
-        res.render('sprint', { title: 'Project page', user: req.user, project: project, lead: lead, sprint: sprint, tasks: tasks });
-    }
-})
+    //return all the sprints for the selected project
+    await Tasks.find({ sprint_id: req.params.id }, function (err, tasks) {
+        if (err) {
+            res.render('sprint', { title: 'Project page', user: req.user, project: project, lead: lead, sprint: sprint, tasks: null });
+        }
+        else {
+            res.render('sprint', { title: 'Project page', user: req.user, project: project, lead: lead, sprint: sprint, tasks: tasks });
+        }
+    })
 
 };
 
@@ -86,8 +86,7 @@ taskController.updateSprint = async (req, res) => {
                     console.log("update sprint failed");
                     res.redirect('/sprint/' + req.params.id);
                 }
-                else
-                {
+                else {
                     console.log("updated sprint successfully");
                 }
             }
@@ -116,6 +115,61 @@ taskController.addSprintComment = async (req, res) => {
             res.redirect('/sprint/' + req.params.id);
         }
     });
+};
+
+taskController.getTaskStats = async (req, res) => {
+    var statsJson = {};
+    await Tasks.find({ sprint_id: req.params.id, status: 'Completed' }, function (err, tasks) {
+        if (err) {
+            console.error(err);
+        }
+        else {
+            statsJson['CompletedTasks'] = tasks.length;
+        }
+    });
+    await Tasks.find({ sprint_id: req.params.id, status: 'In-progress' }, function (err, tasks) {
+        if (err) {
+            console.error(err);
+        }
+        else {
+            statsJson['OngoingTasks'] = tasks.length;
+        }
+    });
+    await Tasks.find({ sprint_id: req.params.id, status: 'To-do' }, function (err, tasks) {
+        if (err) {
+            console.error(err);
+        }
+        else {
+            statsJson['PendingTasks'] = tasks.length;
+        }
+    });
+    await Tasks.find({ sprint_id: req.params.id, isAssigned: false }, function (err, tasks) {
+        if (err) {
+            console.error(err);
+        }
+        else {
+            statsJson['UnassignedTasks'] = tasks.length;
+        }
+    });
+    await Tasks.find({ sprint_id: req.params.id, isAssigned: true }, function (err, tasks) {
+        if (err) {
+            console.error(err);
+        }
+        else {
+            statsJson['AssignedTasks'] = tasks.length;
+        }
+    });
+    await Tasks.find({ sprint_id: req.params.id }, function (err, tasks) {
+        if (err) {
+            console.error(err);
+        }
+        else {
+            statsJson['TotalTasks'] = tasks.length;
+        }
+    });
+
+    res.send(statsJson);
+
 };
 
 

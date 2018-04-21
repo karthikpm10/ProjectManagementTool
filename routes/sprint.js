@@ -14,6 +14,9 @@ router.get('/:id', async (req, res, next) => {
   await taskcontroller.listTasks(req, res);
 });
 
+router.get('/:id/TaskStats', async (req, res, next) => {
+  await taskcontroller.getTaskStats(req, res);
+});
 router.post('/:id/AddTask', taskcontroller.addTask);
 router.post('/:id/UpdateSprint', taskcontroller.updateSprint);
 router.post('/:id/AddSprintComment', taskcontroller.addSprintComment);
