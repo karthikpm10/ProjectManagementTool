@@ -30,7 +30,7 @@ projectController.insertProject = async (request, response) => {
     });
     projectObj.save(function (err, resp) {
         if (err) {
-            response.redirect('index');
+            response.redirect('/');
         }
         else {
 
