@@ -51,15 +51,20 @@
                 <div class="container col-md-12">
                     <div class="row">
                       <div class="col-md-11">
-                
-                        <button type="button" class="btn btn-primary btn-lg btn-block menuButtons" data-toggle="modal" data-target="#taskModal">Create Task</button>
-                
-                        <button type="button" class="btn btn-primary btn-lg btn-block menuButtons" data-toggle="modal" data-target="#sprintModal">Update Sprint information</button>
+
+                        <h3><b><u> Sprint Analytics</u></b></h3>
+                        <canvas id="canvas1" width="300" height="300"></canvas>
+
+                        <button type="button" class="btn btn-primary btn-lg menuButtons" data-toggle="modal" data-target="#sprintModal">Update Sprint information</button>
+
+                        <button type="button" class="btn btn-primary btn-lg  menuButtons" data-toggle="modal" data-target="#taskModal">Create Task</button>
                 
                         <% var backURL = "../project/"+project.project_id %>
                         <a href="<%= backURL %>">
-                        <button type="button" class="btn btn-primary btn-lg btn-block menuButtons"><span class="glyphicon glyphicon-chevron-left"></span> Project Dashboard </button> 
+                        <button type="button" class="btn btn-primary btn-lg menuButtons"><span class="glyphicon glyphicon-chevron-left"></span> Project Dashboard </button> 
                         </a>
+                        
+                        
                       </div>
                     </div>
 
@@ -260,6 +265,11 @@
 
       $("#dropdown_status").val('<%- sprint.status %>');
 
+      // Anaytics function call
+      var canvas = document.getElementsByTagName('canvas');
+      var canvasx = document.getElementById('canvas1');
+      progressBar(canvasx.id);
+
       $("#endDate").change(function () {
         var startDate = document.getElementById("startDate").value;
         var endDate = document.getElementById("endDate").value;
@@ -273,87 +283,29 @@
   </script>
 
 <!--Circular progress bar-->
-<div>
-  <% var statusIDS = [] %>
-  <% for(var i = 0; i < tasks.length; ++i) {%>
-  <% var url = "../task/"+tasks[i].task_id %>
-  <%statusIDS.push(tasks[i].status) %>
-  <% } %>
-  <h4> Status of <%= sprint.name %> </h4>
-  <% for(var i = 0; i < statusIDS.length; ++i) {%>
-  <%if(statusIDS[i] === "To-do") statusIDS[i] = 0 %>
-  <%if(statusIDS[i] === "In-progress") statusIDS[i] = 50 %>
-  <%if(statusIDS[i] === "Completed") statusIDS[i] = 100 %>
-  <%}%>
-  <% var max= statusIDS.length *100 %>
-  <% var sum = 0 %>
-  <% for(var i = 0; i < statusIDS.length; ++i) {%>
-  <% sum = sum + statusIDS[i];%>
-  <%}%>
-  <% per= (sum * 100)/max %>
-  </h4>
-  <h5 id="per" style="visibility: hidden;"><%=per%></h5>
-  </div>
-  <canvas id="canvas1" width="300" height="300"></canvas>
-  <script>
-  var canvas = document.getElementsByTagName('canvas');
-  for (var i = 0; i < canvas.length; i++) {
-  progressBar(canvas[i].id);
+  <% var statusIDS = [] 
+   for(var i = 0; i < tasks.length; ++i) {
+   var url = "../task/"+tasks[i].task_id 
+   statusIDS.push(tasks[i].status) 
+   } %>
+
+  <% for(var i = 0; i < statusIDS.length; ++i) {
+  if(statusIDS[i] === "To-do") statusIDS[i] = 0 
+  if(statusIDS[i] === "In-progress") statusIDS[i] = 50 
+  if(statusIDS[i] === "Completed") statusIDS[i] = 100 
   }
-  // load the canvas
-  function progressBar(canvasId) {
-  var degreesCall;
-  var canvas = document.getElementById(canvasId);
-  var ctx = canvas.getContext('2d');
-  // declare some variables
-  var cWidth = canvas.width;
-  var cHeight = canvas.height;
-  var progressColor = '#b3cf3c';
-  var circleColor = '#808080';
-  var rawPerc = Number(document.getElementById('per').innerHTML);
-  console.log(rawPerc);
-  var perc = parseInt(rawPerc);
-  var degrees = 0;
-  var endDegrees = (360*perc)/100;
-  var lineWidth = 30; // The 'brush' size
-  console.log(canvasId+' '+perc);
-  function getDegrees() {
-  if(degrees < endDegrees) {
-  degrees++;
+   var max= statusIDS.length *100 
+   var sum = 0 
+   for(var i = 0; i < statusIDS.length; ++i) {
+   sum = sum + statusIDS[i];
   }
-  else {
-  clearInterval(degreesCall);
-  }
-  drawProgressBar();
-  }
-  function drawProgressBar() {
-  //clear the canvas after every instance
-  ctx.clearRect(0,0,cWidth,cHeight);
-  //drawing the background circle
-  ctx.beginPath();
-  ctx.strokeStyle = circleColor;
-  ctx.lineWidth = lineWidth -1;
-  ctx.arc(cHeight/2, cWidth/2, cWidth/3, 0, Math.PI*2, false);
-  ctx.stroke();
-  var radians = 0; // convert the degrees to radians
-  radians = degrees * Math.PI/180;
-  //drawing the actual progressBar
-  ctx.beginPath();
-  ctx.strokeStyle = progressColor;
-  ctx.lineWidth = lineWidth;
-  ctx.arc(cHeight/2, cWidth/2, cWidth/3, 0 - 90*Math.PI/180, radians - 90*Math.PI/180, false);
-  ctx.stroke();
-  //text
-  ctx.fillStyle = progressColor;
-  ctx.font = '25px Arial';
-  var outputTextPerc = Math.floor(degrees/360*100)+'%';
-  var outputTextPercWidth = ctx.measureText(outputTextPerc).width;
-  ctx.fillText(outputTextPerc, cWidth/2 - outputTextPercWidth/2, cHeight/2 - 00);
-  }
-  degreesCall = setInterval(getDegrees, 10/(degrees - endDegrees));
-  }
-  </script> 
- <!--END of circular progress bar-->
+   per = (sum * 100)/max %>
+
+  <h5 id="per" style="visibility: hidden;"><%= per%></h5>
+  
+
+  <script src="/javascripts/analytics.js"></script>
+  
 </body>
 
 </html>

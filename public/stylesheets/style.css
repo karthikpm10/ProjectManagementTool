@@ -204,3 +204,7 @@ hr{
   padding:0px 100px;
   /* background-color:black; */
 }
+
+#canvas1{
+  background-color: #F5F5F5;
+}
