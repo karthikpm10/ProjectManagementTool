@@ -34,7 +34,10 @@
           <br>
           <br>
 
-      
+            <br>
+          <% if(projects.length == 0) { %>
+            <h3> Not involved in any projects yet </h3> 
+           <% } %>
           <% for(var i = 0; i < projects.length; ) {%>
           
             <div class="row" >

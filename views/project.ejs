@@ -3,90 +3,133 @@
 
 <head>
   <title>Project Management</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <!-- Google Fonts API -->
-  <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple|3d-float">
-
-   <!-- Bootstrap core CSS -->
-   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom stylesheets -->
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-  <link rel='stylesheet' href='/stylesheets/style2.css' />
-  <link rel='stylesheet' href='/stylesheets/comments.css' />
+ 
 </head>
 
 <body href="#page-top">
   
-  <!-- Angular Material requires Angular.js Libraries -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+  <% var title='Project dashboard' %>
+  <% var name= project.name %>
+  <% var description=project.description %>
 
-  <!-- Angular Material Library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  <% include header-template.ejs %>
 
-  <!-- My Angular script -->
-  <!-- <script src="javascripts/angularScript.js"></script> -->
-  
-   <!--Navigation -->
-   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-      <div class="container">
-        
-          
-        <a class="navbar-brand js-scroll-trigger" href="#page-top" id="linktotop" font-size="15px">Home</a>
+  <div class="container col-md-12">
+    <div class="row">
+      <div class="col-md-7">
+        <br>
+          <div class="container col-md-12">
 
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase ml-auto">
-            
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="../logout">Signout</a>
-            </li>
-          </ul>
-        </div>
+              <% if(sprints.length == 0) { %>
+                <br><h3> No sprints yet </h3> 
+               <% } %>
+              <% for(var i = 0; i < sprints.length; ) {%>
+                
+                  <div class="row" >
+
+                    <% for(var j = 0; j < 3 && i < sprints.length; ++j, ++i) {%>
+                    <% var url = "../sprint/"+sprints[i].sprint_id %>
+                    <div class="col-md-4">
+                        <a href=<%= url %>>
+                            <div class="card2 card-1">
+                                <br>
+                                  <h3><b><%=sprints[i].name%></b></h3>
+                                  <h4>statusIDS: <%=sprints[i].status%></h4>
+                                  <p><%=sprints[i].description%></p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <% } %>
+                </div>
+                <% } %>
+
+          </div>
       </div>
-    </nav>
-  <h1>
-    <%= project.name %> Dashboard
-  </h1>
-  <!-- <h2>Welcome
-    <%=user.name %>
-  </h2> -->
-  <h3> Team lead :
-    <%= lead.name %>
-  </h3><br>
 
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sprintModal">
-    Create Sprint
-  </button>
+      <div class="col-md-1">        
+      </div>
 
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#memberModal">
-    Add new member
-  </button>
+      <div class="col-md-4">
 
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#projectModal">
-    Update Project <br>information
-  </button>
+          <div class="container col-md-12">
+              <div class="row">
+                <div class="col-md-11">
 
-  <a href="../profile">
-    <button type="button" class="btn btn-primary">
-      Profile
-    </button>
-  </a>
-  <a href="../logout">
-    <button type="button" class="btn btn-primary">
-      Sign out
-    </button>
-  </a>
+                  <h3><b><u> Project Analytics</u></b></h3>
+                  <canvas id="canvas1" width="300" height="300"></canvas><br />
+                  
+                  <button type="button" class="btn btn-primary btn-lg menuButtons" data-toggle="modal" data-target="#sprintModal">Create Sprint</button>
+                  
+                  <button type="button" class="btn btn-primary btn-lg menuButtons" data-toggle="modal" data-target="#memberModal">Add new member</button>                  
+          
+                  <button type="button" class="btn btn-primary btn-lg menuButtons" data-toggle="modal" data-target="#projectModal">Update Project information </button>
+                  
+                </div>
+              </div>
 
+              <div class="row">
+                <div class="col-md-12">
+                <!--Html code for comments-->
+                            <div class="detailBox">
+                              <div class="titleBox">
+                                <label>Comments thread</label>
+                                
+                              </div>
+                              <div class="commentBox">
+                            
+                                
+                                <div class="actionBox">
+                                  <ul class="commentList">
+
+                                      <% for(var i = 0; i < project.comments.length; i++) {%>
+                                    <li>
+                                      <div class="commenterImage">
+                                        <img src="/img/nopic.png" />
+                                      </div>
+                                      <div class="commentText">
+                                        <p class=""><%= project.comments[i].content %></p>
+                                        <span class="date sub-text"><%= project.comments[i].userName %> </span>
+                            
+                                      </div>
+                                    </li>
+                                      <% } %>
+                            
+                                    
+                                  </ul>
+                                  <% var urlcomment = "/project/"+project.project_id+"/AddProjectComment" %>
+                                  
+                                  <form class="form-inline" role="form" method="POST" action="<%= urlcomment %>">
+                                    <div class="form-group">
+                                      <input class="form-control" type="text" placeholder="Your comments" name="content" />
+                                    </div>
+                                    <div class="form-group">
+                                      <button type="submit" class="btn btn-default">Add</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Modal for adding new team member -->
     <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -96,7 +139,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <div class="panel-heading">
-            <div class="font-effect-shadow-multiple heading">New Team member:)</div>
+            <div class="font-effect-shadow-multiple heading">Add Member</div>
           </div>
           <hr>
           <% var url1 = "/project/"+project.project_id+"/AddMember" %>
@@ -104,11 +147,10 @@
 
 
               <label>New Member</label>
-              <input type="text" class="form-control" name="member" id="member" required>
-              <br />
+              <input type="text" class="form-control" name="member" id="member" placeholder="Email ID" required>
 
               <div class="submitButton">
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary btn-lg">Add</button>
               </div>
             </form>
         </div>
@@ -116,6 +158,8 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal for Creating sprint -->
   <div class="modal fade" id="sprintModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -125,7 +169,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <div class="panel-heading">
-            <div class="font-effect-shadow-multiple heading">CREATE SPRINT :)</div>
+            <div class="font-effect-shadow-multiple heading">Create Sprint</div>
           </div>
           <hr>
           <% var url2 = "/project/"+project.project_id+"/AddSprint" %>
@@ -153,7 +197,6 @@
 
                   </div>
 
-
                   <div class="col-md-5">
                     <label for="endDate">End Date:</label>
                     <input class="form-control" type="date" name="endDate" id="endDate" required>
@@ -164,7 +207,7 @@
 
 
               <div class="submitButton">
-                <button type="submit" class="btn btn-primary">Create Sprint</button>
+                <button type="submit" class="btn btn-primary btn-lg">Create Sprint</button>
               </div>
             </form>
         </div>
@@ -174,6 +217,7 @@
   </div>
 
 
+  <!-- Modal to update project -->
   <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -183,7 +227,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <div class="panel-heading">
-            <div class="font-effect-shadow-multiple heading">Update PROJECT :)</div>
+            <div class="font-effect-shadow-multiple heading">Update Project</div>
           </div>
           <hr>
 
@@ -233,7 +277,7 @@
 
 
             <div class="submitButton">
-              <button type="submit" class="btn btn-primary">Update Project</button>
+              <button type="submit" class="btn btn-primary btn-lg">Update Project</button>
             </div>
           </form>
         </div>
@@ -242,6 +286,26 @@
     </div>
   </div>
 
+  <% var statusIDS = [] 
+  for(var i = 0; i < sprints.length; ++i) {
+  var url = "../sprint/"+sprints[i].sprint_id 
+  statusIDS.push(sprints[i].status) 
+  }
+  for(var i = 0; i < statusIDS.length; ++i) {
+ if(statusIDS[i] === "To-do") statusIDS[i] = 0 
+ if(statusIDS[i] === "In-progress") statusIDS[i] = 50 
+ if(statusIDS[i] === "Completed") statusIDS[i] = 100 
+ }
+  var max= statusIDS.length *100
+  var sum = 0
+  for(var i = 0; i < statusIDS.length; ++i) {
+  sum = sum + statusIDS[i];
+ }
+  per= (sum * 100)/max %>
+
+  <h5 id="per" style="visibility: hidden;"><%= per%></h5>
+
+  <script src="/javascripts/analytics.js"></script>
   
   <script>
     $(document).ready(function () {
@@ -251,6 +315,9 @@
       document.querySelector("#projectForm #project_startDate").value = start_date;
       document.querySelector("#projectForm #project_endDate").value = end_date;
 
+      // Anaytics function call
+      var canvasx = document.getElementById('canvas1');
+      progressBar(canvasx.id);
       
       function validateMember() {
 
@@ -314,165 +381,10 @@
     });
   </script>
 
-<style> textarea{
-  background-color:#c2c2a3; height:50px; width: 300px; border: 8px solid rgb(21, 4, 61); padding: 15px; margin-left:20px; font-family:Georgia,serif; font-size:20px; text-align:center;
-  margin-top:20px;
-  
-}
-  </style>
-<div class="panel-heading">
-    <div class="font-effect-shadow-multiple heading">LIST OF SPRINTS:)</div>
-  </div>
-<div class="container2">
-    
-<% for(var i = 0; i < sprints.length; ++i) {%>
 
-   
-  <% var url = "../sprint/"+sprints[i].sprint_id %>
-     
-        
-      
-      <div class="fancy">
-          <a href=<%= url %>>
-            <h3>
-          - <%=sprints[i].name%>
-      </h3></a>
-      <h4>
-          - <%=sprints[i].status%>
-      </h4>
-      </div>  
-    
-  
-    <% } %>
-    
-    </div>
 
-<!--Circular progress bar-->
-<div>
-  <% var statusIDS = [] %>
-  <% for(var i = 0; i < sprints.length; ++i) {%>
-  <% var url = "../sprint/"+sprints[i].sprint_id %>
-  <%statusIDS.push(sprints[i].status) %>
-  <% } %>
-  <h4> Status of <%= project.name %> project </h4>
-  <% for(var i = 0; i < statusIDS.length; ++i) {%>
-  <%if(statusIDS[i] === "To-do") statusIDS[i] = 0 %>
-  <%if(statusIDS[i] === "In-progress") statusIDS[i] = 50 %>
-  <%if(statusIDS[i] === "Completed") statusIDS[i] = 100 %>
-  <%}%>
-  <% var max= statusIDS.length *100 %>
-  <% var sum = 0 %>
-  <% for(var i = 0; i < statusIDS.length; ++i) {%>
-  <% sum = sum + statusIDS[i];%>
-  <%}%>
-  <% per= (sum * 100)/max %>
-  <h5 id="per" style="visibility: hidden;"><%=per%></h5>
-  </div>
-  <canvas id="canvas1" width="300" height="300"></canvas>
-  <script>
-  var canvas = document.getElementsByTagName('canvas');
-  for (var i = 0; i < canvas.length; i++) {
-  progressBar(canvas[i].id);
-  }
-  // load the canvas
-  function progressBar(canvasId) {
-  var degreesCall;
-  var canvas = document.getElementById(canvasId);
-  var ctx = canvas.getContext('2d');
-  // declare some variables
-  var cWidth = canvas.width;
-  var cHeight = canvas.height;
-  var progressColor = '#b3cf3c';
-  var circleColor = '#808080';
-  var rawPerc = Number(document.getElementById('per').innerHTML);
-  console.log(rawPerc);
-  var perc = parseInt(rawPerc);
-  var degrees = 0;
-  var endDegrees = (360*perc)/100;
-  var lineWidth = 30; // The 'brush' size
-  console.log(canvasId+' '+perc);
-  function getDegrees() {
-  if(degrees < endDegrees) {
-  degrees++;
-  }
-  else {
-  clearInterval(degreesCall);
-  }
-  drawProgressBar();
-  }
-  function drawProgressBar() {
-  //clear the canvas after every instance
-  ctx.clearRect(0,0,cWidth,cHeight);
-  //drawing the background circle
-  ctx.beginPath();
-  ctx.strokeStyle = circleColor;
-  ctx.lineWidth = lineWidth -1;
-  ctx.arc(cHeight/2, cWidth/2, cWidth/3, 0, Math.PI*2, false);
-  ctx.stroke();
-  var radians = 0; // convert the degrees to radians
-  radians = degrees * Math.PI/180;
-  //drawing the actual progressBar
-  ctx.beginPath();
-  ctx.strokeStyle = progressColor;
-  ctx.lineWidth = lineWidth;
-  ctx.arc(cHeight/2, cWidth/2, cWidth/3, 0 - 90*Math.PI/180, radians - 90*Math.PI/180, false);
-  ctx.stroke();
-  //text
-  ctx.fillStyle = progressColor;
-  ctx.font = '25px Arial';
-  var outputTextPerc = Math.floor(degrees/360*100)+'%';
-  var outputTextPercWidth = ctx.measureText(outputTextPerc).width;
-  ctx.fillText(outputTextPerc, cWidth/2 - outputTextPercWidth/2, cHeight/2 - 00);
-  }
-  degreesCall = setInterval(getDegrees, 10/(degrees - endDegrees));
-  }
-  </script>
-<!--END of circular progress bar-->
-    <!--Html code for comments-->
-<div class="detailBox">
-  <div class="titleBox">
-    <label>Comments</label>
-    <button type="button" class="close" aria-hidden="true">&times;</button>
-  </div>
-  <div class="commentBox">
 
-<p class="taskDescription">Comments on the current project.</p>
-    <div class="actionBox">
-      <ul class="commentList">
-        
-        <li>
-          <div class="commenterImage">
-            <img src="http://placekitten.com/50/50" />
-          </div>
-          <div class="commentText">
-            <p class="">Hello this is a test comment.</p>
-            <span class="date sub-text">on March 5th, 2014</span>
 
-          </div>
-        </li>
-
-        <li>
-          <div class="commenterImage">
-            <img src="http://placekitten.com/40/40" />
-          </div>
-          <div class="commentText">
-            <p class="">Hello this is a test comment.</p>
-            <span class="date sub-text">on March 5th, 2014</span>
-
-          </div>
-        </li>
-      </ul>
-      <form class="form-inline" role="form">
-        <div class="form-group">
-          <input class="form-control" type="text" placeholder="Your comments" />
-        </div>
-        <div class="form-group">
-          <button class="btn btn-default">Add</button>
-        </div>
-      </form>
-    </div>
-  </div>
-<!-- Html code for comments end here-->
 </body>
 
 </html>

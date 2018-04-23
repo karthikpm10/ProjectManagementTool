@@ -18,6 +18,9 @@
           <div class="row">
 
             <div class="col-md-8">
+              <% if(tasks.length == 0) { %>
+                 <br><h3> No Tasks yet </h3> 
+                <% } %>
                 <div class="container col-md-12">
                     <% for(var i = 0; i < tasks.length; ) {%>
                     
@@ -61,7 +64,7 @@
                 
                         <% var backURL = "../project/"+project.project_id %>
                         <a href="<%= backURL %>">
-                        <button type="button" class="btn btn-primary btn-lg menuButtons"><span class="glyphicon glyphicon-chevron-left"></span> Project Dashboard </button> 
+                        <button type="button" class="btn btn-primary btn-lg menuButtons"><span class="glyphicon glyphicon-chevron-left"></span> Sprint Dashboard </button> 
                         </a>
                         
                         
@@ -177,7 +180,7 @@
 
 
             <div class="submitButton">
-              <button type="submit" class="btn btn-primary">Create Task</button>
+              <button type="submit" class="btn btn-primary btn-lg">Create Task</button>
             </div>
           </form>
         </div>
@@ -244,7 +247,7 @@
 
 
               <div class="submitButton">
-                <button type="submit" class="btn btn-primary">Update Sprint</button>
+                <button type="submit" class="btn btn-primary btn-lg">Update Sprint</button>
               </div>
             </form>
         </div>
@@ -266,7 +269,6 @@
       $("#dropdown_status").val('<%- sprint.status %>');
 
       // Anaytics function call
-      var canvas = document.getElementsByTagName('canvas');
       var canvasx = document.getElementById('canvas1');
       progressBar(canvasx.id);
 
@@ -301,8 +303,7 @@
   }
    per = (sum * 100)/max %>
 
-  <h5 id="per" style="visibility: hidden;"><%= per%></h5>
-  
+  <h5 id="per" style="visibility: hidden;"><%= per%></h5> 
 
   <script src="/javascripts/analytics.js"></script>
   
