@@ -69,7 +69,10 @@
 					<ul class="pull-right right-menu">
 						<li><a href="#fh5co-projects">About</a></li>
 						<li><a href="#fh5co-features">Features</a></li>
-						<li><a href="#fh5co-features-2">Team</a></li>
+            <li><a href="#fh5co-features-2">Team</a></li>
+            <% if(user != null) { %>
+              <li><a href="/logout">Sign out</a></li>
+            <% } %>
           </ul>
 				</nav>
 			</div>
@@ -83,9 +86,13 @@
 					<div class="fh5co-intro-text">
 
 						<div class="fh5co-center-position">
-							<h2 id="projectname" class="animate-box" >Collaborate</h2>
+              <h2 id="projectname" class="animate-box">Collaborate & Create</h2>
+              <% if(user != null) { %>
+                <p class="animate-box"><a href= "/profile" class="btn btn-outline"> My Profile </a></p>
+              <% } else { %>
               <p class="animate-box"><a href= "#loginModal" class="btn btn-outline" data-toggle="modal" data-target="#loginModal"> Sign In </a> 
                 <a href="#registerModal" class="btn btn-outline" data-toggle="modal" data-target="#registerModal">Register</a></p>
+              <% } %>
 						</div>
 					</div>
 				</div>
@@ -100,7 +107,7 @@
 			<div class="container">
 				<div class="row row-bottom-padded-md">
 					<div class="col-md-6 col-md-offset-3 text-center">
-						<h2 class="fh5co-lead animate-box">ABOUT</h2>
+						<h2 class="fh5co-lead animate-box">About</h2>
 						<p class="fh5co-sub-lead animate-box">Our website is to help students organize their group projects. Students can plan, schedule and track the progress of their project. It allows the Team Lead and Developers to create tasks and distribute the tasks among the developers.</p>
 					</div>
         </div>
@@ -112,7 +119,7 @@
 			<div class="container">
 				<div class="row text-center row-bottom-padded-md">
 					<div class="col-md-8 col-md-offset-2">
-						<h2 class="fh5co-lead animate-box">FEATURES</h2>
+						<h2 class="fh5co-lead animate-box">Features</h2>
 					</div>
         </div>
         
@@ -130,7 +137,7 @@
 							<div class="fh5co-icon">
 								<i class="icon-flag2"></i>
 							</div>
-              <h3>Forum based ommunication</h3>
+              <h3>Forum based communication</h3>
             </div>
 					</div>
 					<div class="clearfix visible-sm-block"></div>
@@ -139,7 +146,7 @@
 							<div class="fh5co-icon">
 								<i class="icon-anchor"></i>
 							</div>
-							<h3>Role based User Authentication</h3>
+							<h3>Project Analytics</h3>
 							</div>
 					</div>
 
@@ -180,7 +187,7 @@
 			<div class="container">
         <div class ="row">
             <div class="col-lg-12 text-center">
-				    	<h2 class="fh5co-lead animate-box">OUR AMAZING TEAM</h2>
+				    	<h2 class="fh5co-lead animate-box">Our Amazing Team</h2>
 						</div>
 					</div>
       <div class="row" style= "border-spacing: 15px 25px;">
@@ -244,7 +251,12 @@
 				</div>
 			</div>
 		</section>
-		<!-- END #fh5co-features-2 -->
+    <!-- END #fh5co-features-2 -->
+    
+    <section id="fh5co-features">
+			<div class="container">
+      </div>
+    </section>
 	</div>
 	<!-- END #fh5co-page -->
 	
@@ -260,7 +272,7 @@
                 </button>
   
             <div class="panel-heading">
-              <div class="font-effect-shadow-multiple heading">LOG IN !</div>
+              <div class="font-effect-shadow-multiple heading">SIGN IN !</div>
             </div>
             <hr>
   
@@ -296,7 +308,7 @@
                   </md-input-container>
   
                   <div class="submitButton">
-                    <button type="submit" class="btn btn-success loginButton" ng-disabled="!(!!user.username && !!user.password)">Login</button>
+                    <button type="submit" class="btn btn-success btn-lg loginButton" ng-disabled="!(!!user.username && !!user.password)">Login</button>
                   </div>
                   <!-- <%=status %> -->
   
@@ -380,7 +392,7 @@
               <textarea class="form-control" rows="5" id="description" placeholder="Your skillset, experience and technical interests></textarea> -->
   
               <div class="submitButton">
-                <button type="submit" class="btn btn-primary loginButton" ng-disabled="!(!!user.username && !!user.password && user.confirm_password)">Register</button>
+                <button type="submit" class="btn btn-primary btn-lg loginButton" ng-disabled="!(!!user.username && !!user.password && user.confirm_password)">Register</button>
               </div>
             </form>
           </div>
