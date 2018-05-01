@@ -161,7 +161,8 @@ sprintController.addProjectComment = async (req, res) => {
     Project.findOneAndUpdate(conditions, update, function (err, resp) {
         if (err) return console.error(err);
         else {
-            res.redirect('/project/' + req.params.id);
+            var li = '<li><div class="commenterImage"><img src="/img/nopic.png" /></div><div class="commentText"><p class="">'+comment.content+'</p><span class="date sub-text">'+comment.userName+'</span></div></li>'
+            res.send(li);
         }
     });
     

@@ -97,11 +97,10 @@
                             
                                     
                                   </ul>
-                                  <% var urlcomment = "/project/"+project.project_id+"/AddProjectComment" %>
-                                  
-                                  <form class="form-inline" role="form" method="POST" action="<%= urlcomment %>">
+                                                                    
+                                  <form class="form-inline" role="form" method="POST" id="commentsForm">
                                     <div class="form-group">
-                                      <input class="form-control" type="text" placeholder="Your comments" name="content" />
+                                      <input class="form-control" type="text" placeholder="Your comments" name="content" id="comment"/>
                                     </div>
                                     <div class="form-group">
                                       <button type="submit" class="btn btn-default">Add</button>
@@ -314,6 +313,26 @@
       let end_date = new Date('<%- project.end_date %>').toISOString().substr(0, 10);
       document.querySelector("#projectForm #project_startDate").value = start_date;
       document.querySelector("#projectForm #project_endDate").value = end_date;
+
+      var commentURL = "/project/"+ '<%- project.project_id %>' + "/AddProjectComment";
+
+      //Ajax Call ~~~~~
+      $('#commentsForm').on('submit', function (event) {
+        event.preventDefault(); // Stop the form from causing a page refresh.
+        var data = {
+          content: $('#comment').val()
+        };
+
+        $.ajax({
+          url: commentURL,
+          data: data,
+          method: 'POST'
+        }).then(function (response) {
+          $(".commentList").append(response);
+          $('#comment').val(''); 
+          console.log("comment added");
+        });
+      });
 
       // Anaytics function call
       var canvasx = document.getElementById('canvas1');

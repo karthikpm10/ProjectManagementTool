@@ -69,10 +69,10 @@
                                   
                                 </ul>
                                 <% var urlcomment = "/task/"+task.task_id+"/addTaskComment" %>
-                                
-                                <form class="form-inline" role="form" method="POST" action="<%= urlcomment %>">
+                                                                
+                                <form class="form-inline" role="form" method="POST" id="commentsForm">
                                   <div class="form-group" >
-                                    <input class="form-control" type="text" placeholder="Your comments" name="content" style="width:80%;" />
+                                    <input class="form-control" type="text" placeholder="Your comments" name="content" style="width:80%;" id="comment"/>
                                   </div>
                                   <div class="form-group">
                                     <button type="submit" class="btn btn-default">Add</button>
@@ -188,8 +188,6 @@
 
       document.getElementById("startID").innerHTML = "<u>Start date:</u> "+start_date;
       document.getElementById("endID").innerHTML = "<u>End date:</u> "+end_date;
-      
-      
 
       $("#dropdown_status").val('<%- task.status %>');
 
@@ -201,7 +199,27 @@
         document.getElementById("assignID").innerHTML = "<u>Assigned to:</u> No one";
       }
       document.getElementById("statusID").innerHTML = "<u>Current task status:</u> "+'<%- task.status %>';
-        
+    
+
+      var commentURL = "/task/"+ '<%- task.task_id %>' + "/addTaskComment";
+
+      //Ajax Call ~~~~~
+      $('#commentsForm').on('submit', function (event) {
+        event.preventDefault(); // Stop the form from causing a page refresh.
+        var data = {
+          content: $('#comment').val()
+        };
+
+        $.ajax({
+          url: commentURL,
+          data: data,
+          method: 'POST'
+        }).then(function (response) {
+          $(".commentList").append(response);
+          $('#comment').val(''); 
+          console.log("comment added");
+        });
+      });
 
 
       $("#endDate").change(function () {

@@ -32,9 +32,9 @@
 	// FullHeight
 	var fullHeight = function() {
 		if ( !isiPad() && !isiPhone() ) {
-			$('.js-fullheight').css('height', $(window).height() - 199);
+			$('.js-fullheight').css('height', $(window).height() - 49);
 			$(window).resize(function(){
-				$('.js-fullheight').css('height', $(window).height() - 199);
+				$('.js-fullheight').css('height', $(window).height() - 49);
 			})
 		}
 	};

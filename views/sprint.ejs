@@ -102,9 +102,9 @@
                                         </ul>
                                         <% var urlcomment = "/sprint/"+sprint.sprint_id+"/AddSprintComment" %>
                                         
-                                        <form class="form-inline" role="form" method="POST" action="<%= urlcomment %>">
+                                        <form class="form-inline" role="form" method="POST" id="commentsForm">
                                           <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Your comments" name="content" />
+                                            <input class="form-control" type="text" placeholder="Your comments" name="content" id="comment"/>
                                           </div>
                                           <div class="form-group">
                                             <button type="submit" class="btn btn-default">Add</button>
@@ -267,6 +267,26 @@
       document.querySelector("#sprintForm #sprint_endDate").value = end_date;
 
       $("#dropdown_status").val('<%- sprint.status %>');
+
+      var commentURL = "/sprint/"+ '<%- sprint.sprint_id %>' + "/AddSprintComment";
+
+      //Ajax Call ~~~~~
+      $('#commentsForm').on('submit', function (event) {
+        event.preventDefault(); // Stop the form from causing a page refresh.
+        var data = {
+          content: $('#comment').val()
+        };
+
+        $.ajax({
+          url: commentURL,
+          data: data,
+          method: 'POST'
+        }).then(function (response) {
+          $(".commentList").append(response);
+          $('#comment').val(''); 
+          console.log("comment added");
+        });
+      });
 
       // Anaytics function call
       var canvasx = document.getElementById('canvas1');
