@@ -13,6 +13,11 @@ router.get('/', function(req, res, next) {
 });*/
 
 router.get('/:id', async (req, res, next) => {
+  
+  if(!req.user){
+    res.redirect('/');
+  }
+
   //list sprints
   console.log(req.params.id);
   await sprintcontroller.listSprints(req, res);

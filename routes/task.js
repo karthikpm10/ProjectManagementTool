@@ -13,6 +13,11 @@ var Users = require("../models/User");
 // });
 
 router.get('/:id', async (req, res, next) => {
+
+  if(!req.user){
+    res.redirect('/');
+  }
+  
   //list tasks
   console.log(req.params.id);
   var task = await Tasks.findOne({ task_id: req.params.id });

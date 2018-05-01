@@ -9,6 +9,11 @@ var taskcontroller = require("../controllers/TaskController");
 // });
 
 router.get('/:id', async (req, res, next) => {
+
+  if(!req.user){
+    res.redirect('/');
+  }
+  
   //list tasks
   console.log(req.params.id);
   await taskcontroller.listTasks(req, res);
