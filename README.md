@@ -7,9 +7,6 @@ IP Project Spring 2018
 
 * Node.js v8.11.1
 
-* MongoDB
-
-
 
 ## Install
 
@@ -21,16 +18,10 @@ IP Project Spring 2018
 
 * Run the following in the cmd, inside the folder
 ```
-
 npm install
-npm start
 
+npm start
 ```
 
 * open http://localhost:3000/
 
-
-
-### Setup MongoDB
-
-~ Todo ~
