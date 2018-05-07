@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
   res.render('project', { title: 'Project page', user: req.user });
 
 });*/
-
+// list sprints api
 router.get('/:id', async (req, res, next) => {
   
   if(!req.user){
@@ -23,10 +23,13 @@ router.get('/:id', async (req, res, next) => {
   await sprintcontroller.listSprints(req, res);
 });
 
-//uncomment below
+// add member to a project api
 router.post('/:id/AddMember', sprintcontroller.addMember);
+//add a sprint to a project api
 router.post('/:id/AddSprint', sprintcontroller.addSprint);
+//update a project api
 router.post('/:id/UpdateProject', sprintcontroller.updateProject);
+//add a project comment api
 router.post('/:id/AddProjectComment', sprintcontroller.addProjectComment);
 
 

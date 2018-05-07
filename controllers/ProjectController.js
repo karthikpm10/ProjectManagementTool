@@ -53,7 +53,7 @@ projectController.insertProject = async (request, response) => {
     }
     );
 };
-
+//list all the projects for a user
 projectController.getprojects = async (req, res) => {
 
     //var user = await Users.findOne({username:req.user.username}); 
@@ -75,7 +75,7 @@ projectController.getprojects = async (req, res) => {
 
 
 };
-
+//update the user
 projectController.updateUser = async (request, response) => {
 
     var update = { $set: { name: request.body.name,description:request.body.description,university:request.body.university} };

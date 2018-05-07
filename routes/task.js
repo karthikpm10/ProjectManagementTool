@@ -11,14 +11,14 @@ var Users = require("../models/User");
 // router.get('/', function(req, res, next) {
 //   res.render('task', { title: 'Task Page' });
 // });
-
+//list the task detail
 router.get('/:id', async (req, res, next) => {
 
   if(!req.user){
     res.redirect('/');
   }
   
-  //list tasks
+  
   console.log(req.params.id);
   var task = await Tasks.findOne({ task_id: req.params.id });
   var sprint = await Sprints.findOne({ sprint_id: task.sprint_id })
@@ -30,7 +30,7 @@ router.get('/:id', async (req, res, next) => {
     res.render('task', { title: 'Task page', user: req.user, project: project, sprint: sprint, task: task });
 
 });
-
+//edit task api
 router.post('/:id/EditTask', async (req, res, next) => {
 
   var user = await Users.findOne({ username: req.body.assignee });
@@ -66,7 +66,7 @@ router.post('/:id/EditTask', async (req, res, next) => {
 
 
 });
-
+//add task comment api
 router.post('/:id/AddTaskComment', taskdetails.addTaskComment);
 
 

@@ -97,7 +97,7 @@ taskController.updateSprint = async (req, res) => {
     });
 
 };
-
+//add sprint comment
 taskController.addSprintComment = async (req, res) => {
 
     var comment = {
